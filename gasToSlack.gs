@@ -1,16 +1,17 @@
 function sendSlackMessage() {
-  const prop = give_propertiesService();
-  let OAuth_token = prop.getProperty("OAuth_token"); // Slack APIのToken
-  let channel_id = prop.getProperty("channel_id"); // 送信先のチャンネルID
-  const url = "https://slack.com/api/chat.postMessage";
+  let prop = givePropertiesService(); //@this 
+  const OAUTH_TOKEN = prop.getProperty("OAUTH_TOKEN"); // Slack APIのToken
+  const CHANNEL_ID = prop.getProperty("CHANNEL_ID"); // 送信先のチャンネルID
+  let url = "https://slack.com/api/chat.postMessage"; //メッセージを送信する slack api の URL
 
-  var today = new Date();
-  var year = today.getFullYear();
-  var month = ("0" + (today.getMonth() + 1)).slice(-2);
-  var day = ("0" + today.getDate()).slice(-2);
-  var initialDate = year + "-" + month + "-" + day;
+  let today = new Date(); //今日の日付
+  let year = today.getFullYear(); //年
+  let month = ("0" + (today.getMonth() + 1)).slice(-2); //月
+  let day = ("0" + today.getDate()).slice(-2); //日
+  let initialDate = year + "-" + month + "-" + day; // blocks > 利用年月日 の 初期の年月日
 
-  var message = {
+  //Slackに送信するFormデータ
+  let message = {
 	"blocks": [
 		{
 			"type": "divider"
@@ -503,24 +504,26 @@ function sendSlackMessage() {
 	]
 };
   
-  var options = { // Slack APIへのリクエストのオプション
+
+  let options = { // Slack APIへのリクエストのオプション
     'method': 'post',
     'headers': {
       'Authorization': 'Bearer ' + OAuth_token,
       'Content-Type': 'application/json'
     },
     'payload': JSON.stringify({
-      'channel': channel_id,
+      'channel': CHANNEL_ID,
       'blocks': message.blocks,
       "as_user":true
     })
   };
   
-  var response = UrlFetchApp.fetch(url, options); // Slack APIへのリクエストを送信
+  let response = UrlFetchApp.fetch(url, options); // Slack APIへのリクエストを送信
   Logger.log(response.getContentText()); // Slack APIからのレスポンスをログに出力
 }
 
-function give_propertiesService(){
+//PropertiesService.getScriptProperties()を使いまわすための関数
+function givePropertiesService(){
   const prop = PropertiesService.getScriptProperties();
   return prop
 }

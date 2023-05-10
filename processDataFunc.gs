@@ -1,106 +1,127 @@
-function processData(dataList) {
+//受け取ったデータを処理する関数 
+function processData(dataArray) {
   
   // 
-  let u_name = dataList[0]; //ユーザー名
-  const uid = dataList[1]; //ユーザーID
-  const seat_num = dataList[2] - 1; //座席番号
-  const time_start = dataList[3]; //利用開始予定時間
-  const time_end = dataList[4]; //利用終了予定時間
-  const date = dataList[5];  // 利用年月日 yyyy年mm月dd日
-  const check = dataList[6]; //チェックボックス、名前の有無
+  let userName = dataArray[0]; //ユーザー名
+  let uid = dataArray[1]; //ユーザーID
+  let seatNum = dataArray[2] - 1; //座席番号
+  let startTime = dataArray[3]; //利用開始予定時間
+  let endTime = dataArray[4]; //利用終了予定時間
+  let date = dataArray[5];  // 利用年月日 yyyy年mm月dd日
+  let checkBox = dataArray[6]; //チェックボックス、名前の有無
 
-  const u_mail = getSlackUserInfo(uid)[2]; //ユーザーのメールアドレス
+  const STR_SHEET_NAME_ERROR = "SHEET_NAME_ERROR"; //適切なシートを指定されなかった時のエラー
+  const STR_TIME_SELECT_ERROR = "TIME_SELECT_ERROR"; //適切な時間を指定されなかった時のエラー
+  const STR_RESERVED_TIME_ERROR = "RESERVED_ERROR"; //予約済みの時間帯が予約された時のエラー
 
-  const u_info = [u_name,uid,u_mail];
+  const STR_COMPLETE_RESERVATION = "COMPLETE_RESERVATION"; //座席予約完了
 
-  // userCheck(uid,u_info);
+  const CHECK_SPREADSHEET_ID = givePropertiesService().getProperty("CHECK_SPREADSHEET_ID"); //座席確認用のSPREADSHEET ID
+  let checkReferenceSourceSheet = SpreadsheetApp.openById(CHECK_SPREADSHEET_ID); //座席確認用SPREADSHEET 
 
-  const check_spreadsheet_id = give_propertiesService().getProperty("check_spreadsheet_id");
-  const check_referenceSourceSheet = SpreadsheetApp.openById(check_spreadsheet_id);
+  const EPS = 0.5; //座席 前半(1~10)後半(11~20)判別のための値
 
-  const sheets = check_referenceSourceSheet.getSheets();
-  const sheets_name = sheets.map(function(sheet) {
+  const STATE_DATA_SHEET_NAME = "state"; //座席の状態を管理するシートの名前
+
+  //時間の種類の配列
+  let timeArray = ["7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
+
+  //シートの取得
+  let sheets = checkReferenceSourceSheet.getSheets();
+
+  //シートの名前の取得
+  let sheetsName = sheets.map(function(sheet) {
     return sheet.getName();
   });
 
-  if(!sheets_name.includes(date)){
-    return ["sheet_name_error",sheets_name[0],sheets_name[sheets_name.length - 2]];
+  //予約された年月日がシート名に存在しない場合の処理
+  if(!sheetsName.includes(date)){
+    const DUMMY_EXISTENCE = 1; //dummyが1シート文存在
+    const INDEX_ADJUSTMENT= 1; //indexは0から開始する
+
+    //エラーメッセージ、予約可能年月日の最初、予約可能年月日の最後
+    return [STR_SHEET_NAME_ERROR,sheetsName[0],sheetsName[sheetsName.length - DUMMY_EXISTENCE - INDEX_ADJUSTMENT]]; 
   }
 
-
-  const time_kind = ["7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
-
-  const t_hours = time_kind.map(function(value) {
+  //時間の種類から n 時 の n のみを取り出した配列
+  let hourArray = timeArray.map(function(value) {
     return parseInt(value.split(":")[0]);
   })
 
-  if(t_hours[time_start] >= t_hours[time_end]){
-    return "time_select_error";
+  //予約した開始時間が終了時間を超えてはいけない
+  if(hourArray[startTime] >= hourArray[endTime]){
+    return STR_TIME_SELECT_ERROR; //エラーであることを返す
   }
 
-  const time_interval = time_kind.map(function(time,index) {
-    if(index != time_kind.length - 1){
-    return time + "~" + time_kind[index + 1];
+  //時間を ~ で結合した配列 7:00~8:00など
+  let durationArray = timeArray.map(function(time,index) {
+    if(index != timeArray.length - 1){
+    return time + "~" + timeArray[index + 1];
     }
   })
 
-  time_interval.pop(null);
+  //結合した分配列の長さが小さくなる
+  durationArray.pop(null);
 
-  const seat_kind = [1,2,3,4,5,6,7,8,9,10];
+  //座席の数の 1 ユニット: 10席を基準
+  let baseSeatArray = [1,2,3,4,5,6,7,8,9,10];
 
-  const seat_length = seat_kind.length;
-  const ti_length = time_interval.length;
+  let baseSeatLen = baseSeatArray.length; //座席数の基準の配列の長さ = 種類数
+  let timeLen = durationArray.length; //時間の配列の長さ = 種類数
 
-  const quotient = Math.floor(seat_num/(seat_length + 0.5));
+  let quotient = Math.floor(seatNum/(baseSeatLen + EPS)); //前半(1~10)後半(11~20)の判別
 
-  const seat_row = quotient * (ti_length + 2) + 3;
+  let seatRow = quotient * (timeLen + 2) + 3;
 
-  const seat_column = seat_num - quotient * seat_length + 1;
+  let seatColumn = seatNum - quotient * baseSeatLen + 1;
 
-  const time_row = parseInt(time_start) + 1;
-  const time_column = parseInt(time_end) + 1;
+  let timeRow = parseInt(startTime) + 1;
+  let timeColumn = parseInt(endTime) + 1;
 
-  if(!check ) {
-    u_name = null;
+  if(!checkBox ) {
+    userName = null;
   }
 
-  const index_day = sheets_name.indexOf(date);
-  const index_seat = seat_num - 1;
+  let indexOfDay = sheetsName.indexOf(date);
+  let indexOfSeat = seatNum - 1;
 
-  const data_spreadsheet_id = give_propertiesService().getProperty("data_spreadsheet_id");
-  const data_referenceSourceSheet = SpreadsheetApp.openById(data_spreadsheet_id);
-  const sheet = data_referenceSourceSheet.getSheetByName("state");
+  const DATA_SPREADSHEET_ID = givePropertiesService().getProperty("DATA_SPREADSHEET_ID");
+  let dataReferenceSourceSheet = SpreadsheetApp.openById(DATA_SPREADSHEET_ID);
+  let sheet = dataReferenceSourceSheet.getSheetByName(STATE_DATA_SHEET_NAME);
 
-  let str_seat_state = sheet.getRange(1,2).getValues();
+　const SEAT_STATE_ROW = 1;
+  const SEAT_STATE_COLUMN = 2;
 
-  const seat_state = JSON.parse(str_seat_state);
+  let strSeatState = sheet.getRange(SEAT_STATE_ROW,SEAT_STATE_COLUMN).getValues();
 
-  const r_interval = seat_state[index_day][index_seat].slice(time_start, time_end);
-  const r_time_interval = time_interval.slice(time_start, time_end);
+  let arraySeatState = JSON.parse(strSeatState);
 
-  const zeros_check = r_interval.every(element => element == 0);
+  let actualReserveSegment = arraySeatState[indexOfDay][indexOfSeat].slice(startTime, endTime);
+  let timeArraySegment = durationArray.slice(startTime, endTime);
 
-  if(!zeros_check){
-    const continuance_array = countContinuance(r_interval);
-    let message = joinContinuance(continuance_array,r_time_interval).join("、\n");
-    return ["reserved_error",message];
+  let allZerosCheck = actualReserveSegment.every(element => element == 0);
+
+  if(!allZerosCheck){
+    let continuance_array = mergeOnesArray(actualReserveSegment);
+    let message = joinContinuance(continuance_array,timeArraySegment).join("、\n");
+    return [STR_RESERVED_TIME_ERROR,message];
   }
   else{
 
-    seat_state[index_day][index_seat].fill(1,time_start,time_end);
+    arraySeatState[indexOfDay][indexOfSeat].fill(1,startTime,endTime);
 
-    str_seat_state = JSON.stringify(seat_state);
+    strSeatState = JSON.stringify(arraySeatState);
 
-    sheet.getRange(1,2).setValue(str_seat_state);
+    sheet.getRange(1,2).setValue(strSeatState);
 
-    drawCellsForRow(date,seat_row,seat_column,time_row,time_column,u_name); // @controlSheets.gs
+    drawCellsForRow(date,seatRow,seatColumn,timeRow,timeColumn,userName); // @controlSheets.gs
 
-    message = "利用年月日: " + date + 
-    "\n座席番号: " + seat_num + 
-    "\n利用予定時間: " + time_kind[time_start] + "~" +  time_kind[time_end] +
+    const NOTIFY_YOUR_RESERVED_INFO_MESSAGE = "利用年月日: " + date + 
+    "\n座席番号: " + seatNum + 
+    "\n利用予定時間: " + timeArray[startTime] + "~" +  timeArray[endTime] +
     "\nで予約しました !";
 
-    return ["complete_reservation",message];
+    return [STR_COMPLETE_RESERVATION,NOTIFY_YOUR_RESERVED_INFO_MESSAGE];
   }
 
   return;
@@ -108,27 +129,7 @@ function processData(dataList) {
   
 }
 
-function userCheck(uid,u_info) {
-  const member_spreadsheet_id = give_propertiesService().getProperty("member_spreadsheet_id");
-  const referenceSourceSheet = SpreadsheetApp.openById(member_spreadsheet_id);
-  
-  
-  //参照元シートを取得
-  const sheet = referenceSourceSheet.getSheetByName("メンバー表");
-  
-  let userid_map= sheet.getRange(2,2,sheet.getLastRow() - 1,1).getValues();
-
-  let userid_list = userid_map.map(function(value){
-      return value[0].toString();});
-
-  if (userid_list.includes(uid)){
-      return true;
-  }
-
-  sheet.appendRow(u_info); //登録してないなら、ついでに登録
-}
-
-function countContinuance(array){
+function mergeOnesArray(array){
   let result = [];
   let sum = 0;
 
@@ -158,16 +159,16 @@ function joinContinuance(continuance_array,target){
       result.push(target[index]);
     } 
     else if(value > 1) {
-      result.push(transform_str_interval(target,index,value));
+      result.push(transform_stactualReserveSegment(target,index,value));
     }
 });
 
 return result;
 }
 
-function transform_str_interval(time_interval,start,count) {
-  const new_start = time_interval[start].split("~")[0];
-  const new_end = time_interval[start + count - 1].split("~")[1];
+function transform_stactualReserveSegment(durationArray,start,count) {
+  let new_start = durationArray[start].split("~")[0];
+  let new_end = durationArray[start + count - 1].split("~")[1];
 
   return new_start + "~" + new_end;
 

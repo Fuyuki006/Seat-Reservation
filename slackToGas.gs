@@ -1,106 +1,115 @@
 function doPost(e) {
-  const data_spreadsheet_id = give_propertiesService().getProperty("data_spreadsheet_id");
+
+  const STR_SHEET_NAME_ERROR = "SHEET_NAME_ERROR";
+  const STR_TIME_SELECT_ERROR = "TIME_SELECT_ERROR";
+  const STR_RESERVED_ERROR = "RESERVED_ERROR";
+
+  const STR_COMPLETE_RESERVATION = "COMPLETE_RESERVATION";
+
+  const FORM_DATA_SHEET_NAME = "formdata";
+  
+  const data_spreadsheet_id = givePropertiesService().getProperty("data_spreadsheet_id");
   const referenceSourceSheet = SpreadsheetApp.openById(data_spreadsheet_id);
-  let sheet = referenceSourceSheet.getSheetByName("formdata"); //参照元シートを取得
+  let sheet = referenceSourceSheet.getSheetByName(FORM_DATA_SHEET_NAME); //参照元シートを取得
 
   const payload  = JSON.parse(e["parameter"]["payload"]);
 
-  const click_user = payload["user"];
-  const c_user_id = click_user["id"];
+  const clickUser = payload["user"];
+  const clickUserId = clickUser["id"];
 
 
-  const type_actions = payload["actions"][0];
+  const typeActions = payload["actions"][0];
 
-    if(type_actions["value"] == "button"){
+    if(typeActions["value"] == "button"){
 
-    const type_state = payload["state"]["values"];
-    const type_inputs = getObj_inValue(type_state);
+    const typeState = payload["state"]["values"];
+    const typeInputs = getObj_inValue(typeState);
 
-    const stat_select_seat = type_inputs["static_select-action-seat"];
-    const stat_select_ts = type_inputs["static_select-action-ts"];
-    const stat_select_te = type_inputs["static_select-action-te"];
-    const datepicker = type_inputs["datepicker-action"];
-    const checkbox = type_inputs["checkboxes-action"];
+    const statSelectSeat = typeInputs["static_select-action-seat"];
+    const statSelectTs = typeInputs["static_select-action-ts"];
+    const statSelectTe = typeInputs["static_select-action-te"];
+    const datePicker = typeInputs["datepicker-action"];
+    const checkBox = typeInputs["checkboxes-action"];
 
 
-    let sss_val = stat_select_seat["selected_option"];
-    let sts_val = stat_select_ts["selected_option"];
-    let ste_val = stat_select_te["selected_option"];
-    let dp_val = datepicker["selected_date"];
-    let cb_val = checkbox["selected_options"][0];
+    let sSSVal = statSelectSeat["selected_option"];
+    let sTSVal = statSelectTs["selected_option"];
+    let sTEVal = statSelectTe["selected_option"];
+    let dPVal = datePicker["selected_date"];
+    let cBVal = checkBox["selected_options"][0];
 
-    const requirement_check_li = [c_user_id,sss_val,sts_val,ste_val,dp_val];
+    const requirementCheckArray = [clickUserId,sSSVal,sTSVal,sTEVal,dPVal];
 
-    if(requirement_check_li.includes(null)){
-      let message = "必要事項が記入されていません !";
-      warnMessage(c_user_id,message);
+    if(requirementCheckArray.includes(null)){
+      const NONE_REQUIREMENT_MESSAGE = "必要事項が記入されていません !";
+      warnMessage(clickUserId,NONE_REQUIREMENT_MESSAGE);
       return;
     }
     else{
 
-      sss_val = sss_val["value"];
-      sss_val = sss_val.split("value-");
-      sts_val = sts_val["value"];
-      sts_val = sts_val.split("value-");
-      ste_val = ste_val["value"];
-      ste_val = ste_val.split("value-");
-      dp_val = dp_val.split("-");
+      sSSVal = sSSVal["value"];
+      sSSVal = sSSVal.split("value-");
+      sTSVal = sTSVal["value"];
+      sTSVal = sTSVal.split("value-");
+      sTEVal = sTEVal["value"];
+      sTEVal = sTEVal.split("value-");
+      dPVal = dPVal.split("-");
 
-      if(cb_val) {
-        cb_val = cb_val.value;
+      if(cBVal) {
+        cBVal = cBVal.value;
 
       }
-      const time_kind = ["7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
+      const timeArray = ["7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
 
-      const year = dp_val[0];
-      const month = dp_val[1].replace(/^0+/, "");
-      const day = dp_val[2].replace(/^0+/, "");
+      const year = dPVal[0];
+      const month = dPVal[1].replace(/^0+/, "");
+      const day = dPVal[2].replace(/^0+/, "");
 
-      dp_val = year + "年" + month + "月" + day + "日";
+      dPVal = year + "年" + month + "月" + day + "日";
 
+      let registerDataArray = [clickUserId,sSSVal[1],sTSVal[1],sTEVal[1],dPVal,cBVal];
 
-      // sheet = referenceSourceSheet.getSheetByName(dp_val);
+      const userName = getSlackUserInfo(clickUserId)[0]; //@getUserInfo.gs
 
-      let regit_data = [c_user_id,sss_val[1],sts_val[1],ste_val[1],dp_val,cb_val];
-
-      const u_name = getSlackUserInfo(c_user_id)[0]; //@getUserInfo.gs
-
-      regit_data.unshift(u_name);
+      registerDataArray.unshift(userName);
 
       //データの表示のためのObj
-      const display_data = [u_name,c_user_id,sss_val[1]-1,time_kind[sts_val[1]],time_kind[ste_val[1]],dp_val,cb_val];
+      const displayData = [userName,clickUserId,sSSVal[1]-1,timeArray[sTSVal[1]],timeArray[sTEVal[1]],dPVal,cBVal];
 
-      sheet.getRange(sheet.getLastRow() + 1,1,1,display_data.length).setValues([display_data]);
+      sheet.getRange(sheet.getLastRow() + 1,1,1,displayData.length).setValues([displayData]);
 
-      const result = processData(regit_data);
+      const result = processData(registerDataArray);
 
       //processData 関数を用いてデータを処理する @processDataFunc.gs
-      if(result == "time_select_error"){
-        let message = "正しい利用開始予定時間と利用終了予定時間を選択してください。";
-        warnMessage(c_user_id,message);
+      if(result == STR_TIME_SELECT_ERROR){
+        const INVALID_USE_TIME_MESSAGE = "正しい利用開始予定時間と利用終了予定時間を選択してください。";
+        warnMessage(clickUserId,INVALID_USE_TIME_MESSAGE);
       };
 
-      if(result[0] == "sheet_name_error"){
-        let message = "正しい利用年月日を選択してください";
-        warnMessage(c_user_id,message);
-        message = "選択可能な利用年月日は、\n" + result[1] + "~" + result[2] + "\nの間です。";
-        warnMessage(c_user_id,message);
+      if(result[0] == STR_SHEET_NAME_ERROR){
+        const INVALID_USE_DATE_MESSAGE = "正しい利用年月日を選択してください";
+        warnMessage(clickUserId,INVALID_USE_DATE_MESSAGE);
+        
+        const AVAILABLE_START_DATE = result[1];
+        const AVAILABLE_END_DATE = result[2]
+
+        const NOTIFY_AVAILABLE_DATE_MESSAGE = "選択可能な利用年月日は、\n" + AVAILABLE_START_DATE + "~" + AVAILABLE_END_DATE + "\nの間です。";
+        warnMessage(clickUserId,NOTIFY_AVAILABLE_DATE_MESSAGE);
       };
 
-      if(result[0] == "reserved_error"){
-        let message = "既に予約済みの時間帯があります。";
-        warnMessage(c_user_id,message);
-        message = "予約済みの利用予定時間は、\n" + result[1] + "\nです。\nこの時間帯以外の予約をお願いします。";
-        warnMessage(c_user_id,message);
+      if(result[0] == STR_RESERVED_ERROR){
+        const NOTIFY_RESERVED_TIME_MESSAGE = "既に予約済みの時間帯があります。";
+        warnMessage(clickUserId,NOTIFY_RESERVED_TIME_MESSAGE);
+        const NOTIFY_ACTUAL_RESERVED_TIME_MESSAGE = "予約済みの利用予定時間は、\n" + result[1] + "\nです。\nこの時間帯以外の予約をお願いします。";
+        warnMessage(clickUserId,NOTIFY_ACTUAL_RESERVED_TIME_MESSAGE);
       };
 
-      if(result[0] == "complete_reservation"){
-        warnMessage(c_user_id,result[1]);
+      if(result[0] == STR_COMPLETE_RESERVATION){
+        const NOTIFY_YOUR_RESERVED_INFO_MESSAGE = result[1];
+        warnMessage(clickUserId,NOTIFY_YOUR_RESERVED_INFO_MESSAGE);
       };
       
       return;
-
-
 
     }
   }
@@ -142,7 +151,7 @@ function postDirectMessage(userid,message) {
 
 function getDM_ChannelId(userid){
 
-  const prop = give_propertiesService();
+  const prop = givePropertiesService();
   let url = "https://slack.com/api/conversations.open";
 
   const OAuth_token = prop.getProperty("OAuth_token");
@@ -167,7 +176,7 @@ function getDM_ChannelId(userid){
 }
 
 function postMessage(userid,message,channel_id) {
-  const prop = give_propertiesService();
+  const prop = givePropertiesService();
   const url = "https://slack.com/api/chat.postMessage";
 
   const OAuth_token = prop.getProperty("OAuth_token");
@@ -189,7 +198,7 @@ function postMessage(userid,message,channel_id) {
 
 }
 
-function give_propertiesService(){
+function givePropertiesService(){
   const prop = PropertiesService.getScriptProperties();
   return prop
 }
