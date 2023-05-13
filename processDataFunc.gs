@@ -1,7 +1,6 @@
 //受け取ったデータを処理する関数 
 function processData(dataArray) {
-  
-  // 
+
   let userName = dataArray[0]; //ユーザー名
   let uid = dataArray[1]; //ユーザーID
   let seatNum = dataArray[2] - 1; //座席番号
@@ -16,27 +15,25 @@ function processData(dataArray) {
 
   const STR_COMPLETE_RESERVATION = "COMPLETE_RESERVATION"; //座席予約完了
 
-  const CHECK_SPREADSHEET_ID = givePropertiesService().getProperty("CHECK_SPREADSHEET_ID"); //座席確認用のSPREADSHEET ID
-  let checkReferenceSourceSheet = SpreadsheetApp.openById(CHECK_SPREADSHEET_ID); //座席確認用SPREADSHEET 
+  let checkReferenceSourceSheet = giveCheckSheet()["reference"]; //座席確認用SPREADSHEET 
+
 
   const EPS = 0.5; //座席 前半(1~10)後半(11~20)判別のための値
 
   const STATE_DATA_SHEET_NAME = "state"; //座席の状態を管理するシートの名前
 
-  //時間の種類の配列
-  let timeArray = ["7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
+  let timeFormatArray = timeFormat()[0]; //時間の種類の配列
 
-  //シートの取得
-  let sheets = checkReferenceSourceSheet.getSheets();
+  let checkSheets = checkReferenceSourceSheet.getSheets(); //シートの取得
 
   //シートの名前の取得
-  let sheetsName = sheets.map(function(sheet) {
+  let sheetsName = checkSheets.map((sheet) =>{
     return sheet.getName();
   });
 
   //予約された年月日がシート名に存在しない場合の処理
   if(!sheetsName.includes(date)){
-    const DUMMY_EXISTENCE = 1; //dummyが1シート文存在
+    const DUMMY_EXISTENCE = 1; //dummyが1シート分存在
     const INDEX_ADJUSTMENT= 1; //indexは0から開始する
 
     //エラーメッセージ、予約可能年月日の最初、予約可能年月日の最後
@@ -44,7 +41,7 @@ function processData(dataArray) {
   }
 
   //時間の種類から n 時 の n のみを取り出した配列
-  let hourArray = timeArray.map(function(value) {
+  let hourArray = timeFormatArray.map((value) => {
     return parseInt(value.split(":")[0]);
   })
 
@@ -53,74 +50,86 @@ function processData(dataArray) {
     return STR_TIME_SELECT_ERROR; //エラーであることを返す
   }
 
-  //時間を ~ で結合した配列 7:00~8:00など
-  let durationArray = timeArray.map(function(time,index) {
-    if(index != timeArray.length - 1){
-    return time + "~" + timeArray[index + 1];
-    }
-  })
+  let durationArray = timeFormat()[1]; //時間を ~ で結合した配列 7:00~8:00など
 
-  //結合した分配列の長さが小さくなる
-  durationArray.pop(null);
-
-  //座席の数の 1 ユニット: 10席を基準
-  let baseSeatArray = [1,2,3,4,5,6,7,8,9,10];
+  let baseSeatArray = timeFormat()[2]; //座席の数の 1 ユニット: 10席を基準
 
   let baseSeatLen = baseSeatArray.length; //座席数の基準の配列の長さ = 種類数
   let timeLen = durationArray.length; //時間の配列の長さ = 種類数
 
   let quotient = Math.floor(seatNum/(baseSeatLen + EPS)); //前半(1~10)後半(11~20)の判別
 
-  let seatRow = quotient * (timeLen + 2) + 3;
 
-  let seatColumn = seatNum - quotient * baseSeatLen + 1;
+  const INIT_SPACE = 2; //sheetの上から最初の2行の空白
+  const TIME_AND_SEAT_SPACE = 1; // 時間 / 座席番号 と書かれているセルの分
 
-  let timeRow = parseInt(startTime) + 1;
-  let timeColumn = parseInt(endTime) + 1;
+  const ADDITION_SPACE = 1; //前半(1~10)　から 後半(11~20) (もちろんそれ以降も)　追加するごとに設ける空白
 
+  const SEAT_SPACE = 1; //座席番号が実際に書いてある分 1,14,20など
+
+  //座席が書いてある 行
+  let seatRow = quotient * (timeLen + ADDITION_SPACE + TIME_AND_SEAT_SPACE) + INIT_SPACE + TIME_AND_SEAT_SPACE; 
+
+  //座席が書いてある 列
+  let seatColumn = seatNum - quotient * baseSeatLen + TIME_AND_SEAT_SPACE;
+
+  
+
+  let startTimeRow = parseInt(startTime) + SEAT_SPACE; //利用開始予定時間の行
+  let endTimeRow = parseInt(endTime) + SEAT_SPACE; //利用終了予定時間の行
+
+  //名前の有無の処理
   if(!checkBox ) {
-    userName = null;
+    userName = null; //名前無しにする
   }
 
-  let indexOfDay = sheetsName.indexOf(date);
-  let indexOfSeat = seatNum - 1;
+  let indexOfDay = sheetsName.indexOf(date); // 利用年月日の　index
+  let indexOfSeat = seatNum - 1; //座席の index
 
-  const DATA_SPREADSHEET_ID = givePropertiesService().getProperty("DATA_SPREADSHEET_ID");
-  let dataReferenceSourceSheet = SpreadsheetApp.openById(DATA_SPREADSHEET_ID);
-  let sheet = dataReferenceSourceSheet.getSheetByName(STATE_DATA_SHEET_NAME);
+  let dataSheet = giveDataSheet(STATE_DATA_SHEET_NAME)["sheet"]; //データ管理用のシート
 
-　const SEAT_STATE_ROW = 1;
-  const SEAT_STATE_COLUMN = 2;
+  const SEAT_STATE_ROW = 1; //座席の予約状況が管理されている 行
+  const SEAT_STATE_COLUMN = 2; //座席の予約状況が管理されている 列
 
-  let strSeatState = sheet.getRange(SEAT_STATE_ROW,SEAT_STATE_COLUMN).getValues();
+  let strSeatState = dataSheet.getRange(SEAT_STATE_ROW,SEAT_STATE_COLUMN).getValues(); //座席の予約状況の取得
 
-  let arraySeatState = JSON.parse(strSeatState);
+  let arraySeatState = JSON.parse(strSeatState); //座席の予約状況を配列に変換
 
-  let actualReserveSegment = arraySeatState[indexOfDay][indexOfSeat].slice(startTime, endTime);
+  //指定された年月日と座席番号の予約状況から予約された時間帯の範囲で取り出す
+  let actualReserveSegment = arraySeatState[indexOfDay][indexOfSeat].slice(startTime, endTime); 
+
+  //時間間隔のFormatから予約された時間帯の範囲で取り出す
   let timeArraySegment = durationArray.slice(startTime, endTime);
 
+  //予約されようとしている年月日、座席、時間帯の配列の要素がすべて 0 => どこも予約されていないかチェック
   let allZerosCheck = actualReserveSegment.every(element => element == 0);
 
+  //予約されている部分があったときの処理
   if(!allZerosCheck){
-    let continuance_array = mergeOnesArray(actualReserveSegment);
-    let message = joinContinuance(continuance_array,timeArraySegment).join("、\n");
+    let mergedArray = mergeOnesArray(actualReserveSegment);
+    let message = compressArray(mergedArray,timeArraySegment).join("、\n");
     return [STR_RESERVED_TIME_ERROR,message];
   }
+  //予約されている部分がなかったときの処理
   else{
 
-    arraySeatState[indexOfDay][indexOfSeat].fill(1,startTime,endTime);
+    const FILL_VAL = 1; // 配列を fill する値  1 => 予約する
 
-    strSeatState = JSON.stringify(arraySeatState);
+    arraySeatState[indexOfDay][indexOfSeat].fill(FILL_VAL,startTime,endTime); //予約 (1)で埋める
 
-    sheet.getRange(1,2).setValue(strSeatState);
+    strSeatState = JSON.stringify(arraySeatState); //一度データを文字列に情報を変換
 
-    drawCellsForRow(date,seatRow,seatColumn,timeRow,timeColumn,userName); // @controlSheets.gs
+    dataSheet.getRange(SEAT_STATE_ROW,SEAT_STATE_COLUMN).setValue(strSeatState); //そのデータをスプシに保存
 
+    drawCellsForRow(date,seatRow,seatColumn,startTimeRow,endTimeRow,userName); // @controlSheets.gs
+
+    //予約完了のメッセージ
     const NOTIFY_YOUR_RESERVED_INFO_MESSAGE = "利用年月日: " + date + 
     "\n座席番号: " + seatNum + 
-    "\n利用予定時間: " + timeArray[startTime] + "~" +  timeArray[endTime] +
+    "\n利用予定時間: " + timeFormatArray[startTime] + "~" +  timeFormatArray[endTime] +
     "\nで予約しました !";
 
+    //予約完了したことを示すテキスト、予約完了のメッセージ
     return [STR_COMPLETE_RESERVATION,NOTIFY_YOUR_RESERVED_INFO_MESSAGE];
   }
 
@@ -129,10 +138,10 @@ function processData(dataArray) {
   
 }
 
+// 1 をまとめる関数 [1,0,0,1,1,1,0] => [1,0,0,3,0]
 function mergeOnesArray(array){
   let result = [];
   let sum = 0;
-
   array.forEach((value, index, array) => {
     if (value == 1) {
       sum++;
@@ -151,25 +160,31 @@ function mergeOnesArray(array){
 return result;
 }
 
-function joinContinuance(continuance_array,target){
+// 対象の配列 (targetArray) を 圧縮させる形の配列 (compressionDestArray) に圧縮する関数 
+function compressArray(compressDestArray,targetArray){
   let result = [];
-
-  continuance_array.forEach((value, index, array) => {
+  let excess = 0; // 基準となる数字より余った分が蓄積される
+  const BASE_VAL = 1; //基準となる数字
+  compressDestArray.forEach((value, index, array) => {
     if (value == 1) {
-      result.push(target[index]);
+      result.push(targetArray[index + excess]);
     } 
     else if(value > 1) {
-      result.push(transform_stactualReserveSegment(target,index,value));
+      result.push(mergeTimeRanges(targetArray,index + excess ,value));
+      excess += value - BASE_VAL;
     }
 });
 
 return result;
 }
 
-function transform_stactualReserveSegment(durationArray,start,count) {
-  let new_start = durationArray[start].split("~")[0];
-  let new_end = durationArray[start + count - 1].split("~")[1];
+//時間の範囲をまとめる関数 7:00~8:00, 8:00~9:00 => 7;00~9:00
+function mergeTimeRanges(array,start,count) {
+  const CONTAIN_INITIAL_VAL = 1;
+  const COMBINE_TIME_CHARACTER = "~"; //時間を結合している文字
+  let newStartTime = array[start].split(COMBINE_TIME_CHARACTER )[0];
+  let newEndTime = array[start + count - CONTAIN_INITIAL_VAL].split(COMBINE_TIME_CHARACTER)[1];
 
-  return new_start + "~" + new_end;
+  return newStartTime + COMBINE_TIME_CHARACTER + newEndTime;
 
 }

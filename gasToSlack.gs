@@ -12,6 +12,8 @@ function sendSlackMessage() {
 
   //Slackに送信するFormデータ
   let message = {
+
+  // Block kit builderで作成した Block を入れるところ
 	"blocks": [
 		{
 			"type": "divider"
@@ -508,7 +510,7 @@ function sendSlackMessage() {
   let options = { // Slack APIへのリクエストのオプション
     'method': 'post',
     'headers': {
-      'Authorization': 'Bearer ' + OAuth_token,
+      'Authorization': 'Bearer ' + OAUTH_TOKEN,
       'Content-Type': 'application/json'
     },
     'payload': JSON.stringify({
@@ -520,10 +522,4 @@ function sendSlackMessage() {
   
   let response = UrlFetchApp.fetch(url, options); // Slack APIへのリクエストを送信
   Logger.log(response.getContentText()); // Slack APIからのレスポンスをログに出力
-}
-
-//PropertiesService.getScriptProperties()を使いまわすための関数
-function givePropertiesService(){
-  const prop = PropertiesService.getScriptProperties();
-  return prop
 }

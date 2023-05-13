@@ -1,12 +1,11 @@
 function controlSheets() {
-  let check_spreadsheet_id = givePropertiesService().getProperty("check_spreadsheet_id");
-  let checkReferenceSourceSheet = SpreadsheetApp.openById(check_spreadsheet_id);
+  let referenceSourceSheet = giveCheckSheet()["reference"];
   
-  let sheetNames = ["月", "火", "水", "木", "金", "土","日"];
+  let weekdays = ["月", "火", "水", "木", "金", "土","日"];
   let startDate = new Date(); // 現在の日付
   let options = {year: "numeric", month: "long", day: "numeric"};
   
-  sheetNames = sheetNames.map(function(name, index) {
+  weekdays = weekdays.map(function(name, index) {
     const HOURS = 24;
     const MINUTES = 60;
     const SECONDS = 60;
@@ -17,47 +16,44 @@ function controlSheets() {
   });
 
   const MIN_SHEET_NUM = 1;
-  if(checkReferenceSourceSheet.getNumSheets() != MIN_SHEET_NUM){
-    deleteSheet(sheetNames[0]);
+  if(referenceSourceSheet.getNumSheets() != MIN_SHEET_NUM){
+    deleteAndSetInitSheet(weekdays[0]);
   }
-  else{checkReferenceSourceSheet.insertSheet().setName(sheetNames[0]); // シートを作成
+  else{referenceSourceSheet.insertSheet().setName(weekdays[0]); // シートを作成
   }
 
-  createTable(sheetNames[0]);
+  createTable(weekdays[0]);
 
 
-  sheetNames.map(function(sheetName,index) {
-    if(sheetNames[0] != sheetName){
-      sheetCopyAnotherFile(sheetNames[0],sheetName)
+  weekdays.map(function(sheetName,index) {
+    if(weekdays[0] != sheetName){
+      sheetCopyAnotherFile(weekdays[0],sheetName)
     }
   })
 
-  createSeatStateFormat();
+  seatState();
 
 }
 
-function createSeatStateFormat(){
-  let DATA_SPREADSHEET_ID = givePropertiesService().getProperty("DATA_SPREADSHEET_ID");
-  let dataReferenceSourceSheet = SpreadsheetApp.openById(DATA_SPREADSHEET_ID);
-  let sheet = dataReferenceSourceSheet.getSheetByName(STATE_DATA_SHEET_NAME);
+function seatState(){
+  const STATE_DATA_SHEET_NAME = "state"; //座席の状態を管理するシートの名前
+
+  let dataSheet = referenceSourceSheet.getSheetByName(STATE_DATA_SHEET_NAME); //参照元シートを取得
+
+  const SEAT_STATE_ROW = 1;
+  const SEAT_STATE_COLUMN = 2;
+
+  let timeFormatArray = timeFormat()[0]
 
 
-  let timeArray = ["7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
+  //時間を ~ で結合した配列 7:00~8:00など
+  let durationArray = timeFormat()[1];
 
-  let COMBINE_TIME_CHARACTER = "~";
+  //座席の数の 1 ユニット: 10席を基準
+  let baseSeatArray = timeFormat()[2];
 
-  let durationArray = timeArray.map(function(time,index) {
-    if(index != timeArray.length - 1){
-    return time + COMBINE_TIME_CHARACTER + timeArray[index + 1];
-    }
-  })
-
-  durationArray.pop(null);
-
-  let baseSeatArray = [1,2,3,4,5,6,7,8,9,10];
-
-  let baseSeatLen = baseSeatArray.length;
-  let timeLen = durationArray.length;
+  let baseSeatLen = baseSeatArray.length; //座席数の基準の配列の長さ = 種類数
+  let timeLen = durationArray.length; //時間の配列の長さ = 種類数
 
   let copyOftimeLenToZerosArray = new Array(timeLen).fill(0);
 
@@ -65,13 +61,13 @@ function createSeatStateFormat(){
 
   let totalSeatNum = baseSeatLen * BASE_SEAT_TIMES;
 
-  let seatCombineTimeArray = new Array(totalSeatNum).fill(copyOftimeLenToZerosArray).map(function (value) {
+  let seatCombineTimeArray = new Array(totalSeatNum).fill(copyOftimeLenToZerosArray).map((value) => {
     return value.slice();
   });
 
   const WEEK_DAYS_NUM = 7;
   
-  let seatStateFormatArray = new Array(WEEK_DAYS_NUM).fill(seatCombineTimeArray).map(function (value) {
+  let seatStateFormatArray = new Array(WEEK_DAYS_NUM).fill(seatCombineTimeArray).map((value) => {
     return value.slice();
   });
 
@@ -80,9 +76,8 @@ function createSeatStateFormat(){
 }
 
 function createTable(sheetName) {
-  const CHECK_SPREADSHEET_ID = givePropertiesService().getProperty("CHECK_SPREADSHEET_ID");
-  let checkReferenceSourceSheet = SpreadsheetApp.openById(CHECK_SPREADSHEET_ID);
-  let sheet = checkReferenceSourceSheet.getSheetByName(sheetName);
+  let checkReferenceSourceSheet = giveCheckSheet()["reference"];
+  let sheet = giveCheckSheet(sheetName)["sheet"];
   tableSets(sheet);
   sheet.activate();
 
@@ -91,87 +86,94 @@ function createTable(sheetName) {
 
 }
 
-function deleteSheet(new_sheet_name) {
-  const CHECK_SPREADSHEET_ID = givePropertiesService().getProperty("CHECK_SPREADSHEET_ID");
-  let checkReferenceSourceSheet = SpreadsheetApp.openById(CHECK_SPREADSHEET_ID);
+function deleteAndSetInitSheet(initSheetName) {
+  let checkReferenceSourceSheet = giveCheckSheet()["reference"];
   let DAMMY_CHECK_SHEET_NAME = "dummy";
 
-  let sheetsNames = sheetsNameList();
-  sheetsNames.map(function(name) {
-    if(name != "DAMMY_CHECK_SHEET_NAME"){
-      let sheet = spreadsheet.getSheetByName(name);
+  let sheets_name = sheetsNameList();
+  sheets_name.map((name) => {
+    if(name != DAMMY_CHECK_SHEET_NAME){
+      let sheet = checkReferenceSourceSheet.getSheetByName(name);
   
-      spreadsheet.deleteSheet(sheet);
+      checkReferenceSourceSheet.deleteSheet(sheet);
     }
   });
-  spreadsheet.insertSheet().setName(new_sheet_name);
+  checkReferenceSourceSheet.insertSheet().setName(initSheetName);
 }
 
 function sheetsNameList() {
-  let CHECK_SPREADSHEET_ID = givePropertiesService().getProperty("CHECK_SPREADSHEET_ID");
-  let checkReferenceSourceSheet = SpreadsheetApp.openById(CHECK_SPREADSHEET_ID);
-  let sheetsList = checkReferenceSourceSheet.getSheets();
-  let sheetsNames = sheetsList.map(function(sheet) {
+  let checkReferenceSourceSheet = giveCheckSheet()["reference"] //座席確認用SPREADSHEET 
+  let checkSheets = checkReferenceSourceSheet.getSheets();
+  let checkSheetsNames = checkSheets.map((sheet) => {
     return sheet.getSheetName();
-  }) 
+  });
 
-
-  return sheetsNames;
+  return checkSheetsNames;
 }
 
 function tableSets(sheet) {
-  let timeArray = ["7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
-
-  let durationArray = timeArray.map(function(time,index) {
-    if(index != timeArray.length - 1){
-    return time + "~" + timeArray[index + 1];
-    }
-  })
-
-  durationArray.pop(null);
-
-  let baseSeatArray = [1,2,3,4,5,6,7,8,9,10];
-
-  let baseSeatLen = baseSeatArray.length;
-  let timeLen = durationArray.length;
-
+  
   const STR_RESERVED_FORMAT = "←予約済み";
   const COLOR_CODE_FORMAT = "#e6e6fa";
   const STR_TIME_SEAT_DIVIDE_FORMAT = "時間 / 座席番号";
 
-  sheet.getRange(1,2).setBackground(COLOR_CODE_FORMAT);
-  sheet.getRange(1,3).setValue(STR_RESERVED_FORMAT);
+  const COLOR_POSITION_ROW = 1;
+  const COLOR_POSITION_COLUMN = 2;
 
-  sheet.getRange(3,1).setValue(STR_TIME_SEAT_DIVIDE_FORMAT);
+  const RESERVED_POSITION_ROW = 1;
+  const RESERVED_POSITION_COLUMN = 3;
 
-  sheet.getRange(3 + timeLen + 2,1).setValue(STR_TIME_SEAT_DIVIDE_FORMAT);
+  const DIVIDE_POSITION_ROW = 3;
+  const DIVIDE_POSITION_COLUMN = 1;
 
-  durationArray.map(function(value,index) {
-    sheet.getRange(index + 4,1).setValue(value)
+  const INIT_SPACE = 2; //sheetの上から最初の2行の空白
+
+  const TIME_AND_SEAT_SPACE = 1; // 時間 / 座席番号 と書かれているセルの分
+
+  const ADDITION_SPACE = 1; //前半(1~10)　から 後半(11~20) (もちろんそれ以降も)　追加するごとに設ける空白
+
+  let durationArray = timeFormat()[1];
+
+  let baseSeatArray = timeFormat()[2];
+
+  let baseSeatLen = baseSeatArray.length;
+  let timeLen = durationArray.length;
+
+  const ALL_SEAT_NUM = 20; //全座席数
+  let seatUnitNum = parseInt(ALL_SEAT_NUM / baseSeatLen); // 1unit ここでは 10席 が何個作れるか　何ユニットあるか
+
+  sheet.getRange(COLOR_POSITION_ROW,COLOR_POSITION_COLUMN).setBackground(COLOR_CODE_FORMAT);
+  sheet.getRange(RESERVED_POSITION_ROW,RESERVED_POSITION_COLUMN).setValue(STR_RESERVED_FORMAT);
+
+  sheet.getRange(DIVIDE_POSITION_ROW,DIVIDE_POSITION_COLUMN).setValue(STR_TIME_SEAT_DIVIDE_FORMAT);
+
+  sheet.getRange(DIVIDE_POSITION_ROW + timeLen + TIME_AND_SEAT_SPACE + ADDITION_SPACE,DIVIDE_POSITION_COLUMN).setValue(STR_TIME_SEAT_DIVIDE_FORMAT);
+
+  durationArray.forEach((value, index) => {
+    sheet.getRange(index + INIT_SPACE + TIME_AND_SEAT_SPACE + 1,1).setValue(value)
+  });
+  
+
+  durationArray.forEach((value, index) => {
+    sheet.getRange(index + ADDITION_SPACE + seatUnitNum * TIME_AND_SEAT_SPACE + timeLen + INIT_SPACE + 1,1).setValue(value)
+  });
+
+  baseSeatArray.forEach((num, index) => {
+    sheet.getRange(INIT_SPACE + TIME_AND_SEAT_SPACE,index + TIME_AND_SEAT_SPACE + 1).setValue(num)
   });
 
 
-
-  durationArray.map(function(value,index) {
-    sheet.getRange(index + 2 + timeLen + 4,1).setValue(value)
-  });
-
-  baseSeatArray.map(function(num,index) {
-    sheet.getRange(3,index + 2).setValue(num)
-  });
-
-  baseSeatArray.map(function(num,index) {
-    sheet.getRange(3 + timeLen + 2,index + 2).setValue(num + baseSeatLen)
+  baseSeatArray.forEach((num, index) => {
+  sheet.getRange(INIT_SPACE + seatUnitNum * TIME_AND_SEAT_SPACE + timeLen + ADDITION_SPACE, index + TIME_AND_SEAT_SPACE + 1).setValue(num + baseSeatLen);
   });
 
 }
 
 function sheetCopyAnotherFile(baseSheetName,sheetName) {
 //スクリプトに紐付いたアクティブなシートをコピー対象のシートとして読み込む
-  const CHECK_SPREADSHEET_ID = givePropertiesService().getProperty("CHECK_SPREADSHEET_ID");
-  let checkReferenceSourceSheet = SpreadsheetApp.openById(CHECK_SPREADSHEET_ID);
-  let sheet = checkReferenceSourceSheet.getSheetByName(baseSheetName);
-  sheet.activate();
+  let checkReferenceSourceSheet = giveCheckSheet()["reference"];
+  let checkSheet = giveCheckSheet(baseSheetName)["sheet"];
+  checkSheet.activate();
   let newSheet = checkReferenceSourceSheet.duplicateActiveSheet();
 
 newSheet.setName(sheetName);
@@ -184,33 +186,26 @@ checkReferenceSourceSheet.moveActiveSheet(sheetNum - SHEET_POSITION_BACK); //シ
 
 
 function drawCellsForRow(sheetName,row,column,startRow,endRow,userName){
-  const CHECK_SPREADSHEET_ID = givePropertiesService().getProperty("CHECK_SPREADSHEET_ID");
-  let checkReferenceSourceSheet = SpreadsheetApp.openById(CHECK_SPREADSHEET_ID);
-  let sheet = checkReferenceSourceSheet.getSheetByName(sheetName);
+  let checkSheet = giveCheckSheet(sheetName)["sheet"];
 
   const COLOR_CODE_FORMAT = "#e6e6fa";
 
-  if(!sheet) {
+  if(!checkSheet) {
     new Error("Invalid Sheet");
     return;
   }
 
-  sheet.getRange(row + startRow,column,endRow - startRow,1)
+  checkSheet.getRange(row + startRow,column,endRow - startRow,1)
   .merge()
   .setBorder(true,true,true,true,true,true,null,SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
   .setBackground(COLOR_CODE_FORMAT);
 
   if(userName) {
-    sheet.getRange(row + startRow,column,endRow - startRow,1).setHorizontalAlignment("center"); // 水平方向に中央ぞろえする
-    sheet.getRange(row + startRow,column,endRow - startRow,1).setVerticalAlignment("middle"); // 垂直方向に中央ぞろえする
-    sheet.getRange(row + startRow,column,endRow - startRow,1).setValue(userName); // 結合したセルの中央に文字を入れる
+    checkSheet.getRange(row + startRow,column,endRow - startRow,1).setHorizontalAlignment("center"); // 水平方向に中央ぞろえする
+    checkSheet.getRange(row + startRow,column,endRow - startRow,1).setVerticalAlignment("middle"); // 垂直方向に中央ぞろえする
+    checkSheet.getRange(row + startRow,column,endRow - startRow,1).setValue(userName); // 結合したセルの中央に文字を入れる
   }
 
-}
-
-function givePropertiesService(){
-  let prop = PropertiesService.getScriptProperties();
-  return prop
 }
 
 

@@ -33,19 +33,19 @@ function getSlackUserInfo(uid) {
 }
 
 function getSlackUserInfoProcessing(members){
-  let membersIdList= members.map(function(value){
+  let membersIdList= members.map((value) => {
     if (!value.deleted && !value.is_bot && value.id !== "USLACKBOT"){
       return value.id;
     }
   });
 
-  let membersUserNameList= members.map(function(value){
+  let membersUserNameList= members.map((value) => {
     if (!value.deleted && !value.is_bot && value.id !== "USLACKBOT"){
       return value.real_name;
     }
   });
 
-  let membersMailList= members.map(function(value){
+  let membersMailList= members.map((value) =>{
     if (!value.deleted && !value.is_bot && value.id !== "USLACKBOT"){
       return value.profile.email;
     }
@@ -58,7 +58,7 @@ function getSlackUserInfoProcessing(members){
 }
 
 function listFilter(list){
-  const filteredList = list.filter(function(value){
+  const filteredList = list.filter((value) => {
     return value != null;
   });
   return filteredList;
