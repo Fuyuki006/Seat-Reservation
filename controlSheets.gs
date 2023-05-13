@@ -125,18 +125,18 @@ function sheetsNameList() {
 //座席確認用の　Format　となる table を作成
 function tableSets(sheet) {
   
-  const STR_RESERVED_FORMAT = "←予約済み";
-  const COLOR_CODE_FORMAT = "#e6e6fa";
-  const STR_TIME_SEAT_DIVIDE_FORMAT = "時間 / 座席番号";
+  const STR_RESERVED_FORMAT = "←予約済み"; //予約済みの色を示すための文字列
+  const COLOR_CODE_FORMAT = "#e6e6fa"; //予約済みであることを示すカラーコード
+  const STR_TIME_SEAT_DIVIDE_FORMAT = "時間 / 座席番号"; //時間と座席を区分、行と列で分けていることを示すための文字列
 
-  const COLOR_POSITION_ROW = 1;
-  const COLOR_POSITION_COLUMN = 2;
+  const COLOR_POSITION_ROW = 1; //COLOR_CODE_FORMAT を入れるセルの 行
+  const COLOR_POSITION_COLUMN = 2; //COLOR_CODE_FORMAT を入れるセルの 列
 
-  const RESERVED_POSITION_ROW = 1;
-  const RESERVED_POSITION_COLUMN = 3;
+  const RESERVED_POSITION_ROW = 1; //STR_RESERVED_FORMAT を入れるセルの 行
+  const RESERVED_POSITION_COLUMN = 3; //STR_RESERVED_FORMAT を入れるセルの 列
 
-  const DIVIDE_POSITION_ROW = 3;
-  const DIVIDE_POSITION_COLUMN = 1;
+  const DIVIDE_POSITION_ROW = 3; //STR_TIME_SEAT_DIVIDE_FORMAT を入れるセルの 行
+  const DIVIDE_POSITION_COLUMN = 1; //STR_TIME_SEAT_DIVIDE_FORMAT　を入れるセルの 列
 
   const INIT_SPACE = 2; //sheetの上から最初の2行の空白
 
@@ -144,74 +144,81 @@ function tableSets(sheet) {
 
   const ADDITION_SPACE = 1; //前半(1~10)　から 後半(11~20) (もちろんそれ以降も)　追加するごとに設ける空白
 
-  let durationArray = timeFormat()[1];
+  let durationArray = timeFormat()[1]; //@timeFormat.gs
 
-  let baseSeatArray = timeFormat()[2];
+  let baseSeatArray = timeFormat()[2]; //@timeFormat.gs
 
-  let baseSeatLen = baseSeatArray.length;
-  let timeLen = durationArray.length;
+  let baseSeatLen = baseSeatArray.length; //@timeFormat.gs  1 unit の座席数
+  let timeLen = durationArray.length; //@timeFormat.gs 時間の間隔の種類数
 
   const ALL_SEAT_NUM = 20; //全座席数
   let seatUnitNum = parseInt(ALL_SEAT_NUM / baseSeatLen); // 1 unit ここでは 10席 が何個作れるか　何ユニットあるか
 
-  sheet.getRange(COLOR_POSITION_ROW,COLOR_POSITION_COLUMN).setBackground(COLOR_CODE_FORMAT);
-  sheet.getRange(RESERVED_POSITION_ROW,RESERVED_POSITION_COLUMN).setValue(STR_RESERVED_FORMAT);
+  sheet.getRange(COLOR_POSITION_ROW,COLOR_POSITION_COLUMN).setBackground(COLOR_CODE_FORMAT); //COLOR_CODE_FORMAT をセット
+  sheet.getRange(RESERVED_POSITION_ROW,RESERVED_POSITION_COLUMN).setValue(STR_RESERVED_FORMAT); //STR_RESERVED_FORMAT をセット
 
-  sheet.getRange(DIVIDE_POSITION_ROW,DIVIDE_POSITION_COLUMN).setValue(STR_TIME_SEAT_DIVIDE_FORMAT);
+  //上側の STR_TIME_SEAT_DIVIDE_FORMAT をセット
+  sheet.getRange(DIVIDE_POSITION_ROW,DIVIDE_POSITION_COLUMN).setValue(STR_TIME_SEAT_DIVIDE_FORMAT); 
 
+  //下側の STR_TIME_SEAT_DIVIDE_FORMAT をセット
   sheet.getRange(DIVIDE_POSITION_ROW + timeLen + TIME_AND_SEAT_SPACE + ADDITION_SPACE,DIVIDE_POSITION_COLUMN).setValue(STR_TIME_SEAT_DIVIDE_FORMAT);
 
+  //上側の時間の間隔の種類数(durationArray) をセット
   durationArray.forEach((value, index) => {
     sheet.getRange(index + INIT_SPACE + TIME_AND_SEAT_SPACE + 1,1).setValue(value)
   });
   
-
+  //下側の時間の間隔の種類数(durationArray) をセット
   durationArray.forEach((value, index) => {
     sheet.getRange(index + ADDITION_SPACE + seatUnitNum * TIME_AND_SEAT_SPACE + timeLen + INIT_SPACE + 1,1).setValue(value)
   });
 
+  //上側の座席(1~10)をセット
   baseSeatArray.forEach((num, index) => {
     sheet.getRange(INIT_SPACE + TIME_AND_SEAT_SPACE,index + TIME_AND_SEAT_SPACE + 1).setValue(num)
   });
 
-
+  //下側の座席(11~20)をセット
   baseSeatArray.forEach((num, index) => {
   sheet.getRange(INIT_SPACE + seatUnitNum * TIME_AND_SEAT_SPACE + timeLen + ADDITION_SPACE, index + TIME_AND_SEAT_SPACE + 1).setValue(num + baseSeatLen);
   });
 
 }
 
+//baseSheetName のシートを sheetName のシートにコピーする関数
 function sheetCopyAnotherFile(baseSheetName,sheetName) {
-//スクリプトに紐付いたアクティブなシートをコピー対象のシートとして読み込む
-  let checkReferenceSourceSheet = giveCheckSheet()["reference"];
-  let checkSheet = giveCheckSheet(baseSheetName)["sheet"];
-  checkSheet.activate();
-  let newSheet = checkReferenceSourceSheet.duplicateActiveSheet();
+  let checkReferenceSourceSheet = giveCheckSheet()["reference"]; //@giveSheets.gs
+  let checkSheet = giveCheckSheet(baseSheetName)["sheet"]; //座席確認用のシート
+  checkSheet.activate(); //シートをアクティブにする
+  let newSheet = checkReferenceSourceSheet.duplicateActiveSheet(); //アクティブにしたシートをコピー対象のシートとして読み込む
 
-newSheet.setName(sheetName);
-let sheetNum = checkReferenceSourceSheet.getNumSheets();
+newSheet.setName(sheetName); //コピー対象のシートに sheetName という名前を付ける
+let sheetNum = checkReferenceSourceSheet.getNumSheets(); //座席確認用のシートのシート数を数える
 
-const SHEET_POSITION_BACK = 1;
+const SHEET_POSITION_BACK = 1; //シートを配置する位置が後ろからどれだけ前か
 
 checkReferenceSourceSheet.moveActiveSheet(sheetNum - SHEET_POSITION_BACK); //シートを一番後ろから SHEET_POSITION_BACK つ前に追加
 }
 
-
+//シートに縦一列に描画する関数
 function drawCellsForRow(sheetName,row,column,startRow,endRow,userName){
-  let checkSheet = giveCheckSheet(sheetName)["sheet"];
+  let checkSheet = giveCheckSheet(sheetName)["sheet"]; //@giveSheets.gs
 
-  const COLOR_CODE_FORMAT = "#e6e6fa";
+  const COLOR_CODE_FORMAT = "#e6e6fa"; //予約済みであることを示すカラーコード
 
+  //存在しないシートが指定されたときの処理
   if(!checkSheet) {
     new Error("Invalid Sheet");
     return;
   }
 
+  //予約された日付・座席・時間帯の位置に描画
   checkSheet.getRange(row + startRow,column,endRow - startRow,1)
-  .merge()
-  .setBorder(true,true,true,true,true,true,null,SpreadsheetApp.BorderStyle.SOLID_MEDIUM)
-  .setBackground(COLOR_CODE_FORMAT);
+  .merge() //セルを結合する
+  .setBorder(true,true,true,true,true,true,null,SpreadsheetApp.BorderStyle.SOLID_MEDIUM) //枠線をつける
+  .setBackground(COLOR_CODE_FORMAT); //背景色を変更する
 
+  //名前有で登録された時の処理
   if(userName) {
     checkSheet.getRange(row + startRow,column,endRow - startRow,1).setHorizontalAlignment("center"); // 水平方向に中央ぞろえする
     checkSheet.getRange(row + startRow,column,endRow - startRow,1).setVerticalAlignment("middle"); // 垂直方向に中央ぞろえする
