@@ -1,5 +1,5 @@
 function sendSlackMessage() {
-  let prop = givePropertiesService(); //@this 
+  let prop = givePropertiesService(); //@giveProperties.gs
   const OAUTH_TOKEN = prop.getProperty("OAUTH_TOKEN"); // Slack APIのToken
   const CHANNEL_ID = prop.getProperty("CHANNEL_ID"); // 送信先のチャンネルID
   let url = "https://slack.com/api/chat.postMessage"; //メッセージを送信する slack api の URL
