@@ -102,8 +102,6 @@ function doPost(e) {
 
       let result = processData(registerDataArray);
 
-      dataSheet.appendRow(["KKKKKKKKKKKKKKs"])
-
       //processData 関数を用いてデータを処理する @processDataFunc.gs
       if(result == STR_TIME_SELECT_ERROR){
         const INVALID_USE_TIME_MESSAGE = "正しい利用開始予定時間と利用終了予定時間を選択してください。";
