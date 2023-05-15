@@ -5,13 +5,13 @@ function controlSheets() {
   let weekdays = ["月", "火", "水", "木", "金", "土","日"];
   let startDate = new Date(); // 現在の日付
   let options = {year: "numeric", month: "long", day: "numeric"}; //年・月・日　の設定
-  
-  weekdays = weekdays.map(function(name, index) {
-    const HOURS = 24;
-    const MINUTES = 60;
-    const SECONDS = 60;
-    const MILLIS = 1000;
 
+  const HOURS = 24;
+  const MINUTES = 60;
+  const SECONDS = 60;
+  const MILLIS = 1000;
+  
+  weekdays = weekdays.map((name, index) => {
     let sheetDate = new Date(startDate.getTime() + index * HOURS * MINUTES * SECONDS * MILLIS); // 日付を計算
     let sheetName = sheetDate.toLocaleDateString("ja-JP", options); // シート名を作成
     return sheetName;
@@ -23,8 +23,8 @@ function controlSheets() {
   //シートの枚数による処理
   if(checkReferenceSourceSheet.getNumSheets() != MIN_SHEET_NUM){
     deleteAndSetInitSheet(weekdays[0]); //@deleteAndSetInitSheet 関数
-  }
-  else{checkReferenceSourceSheet.insertSheet().setName(weekdays[0]); // dummy を除いた1枚目のシートを作成
+  }else{
+    checkReferenceSourceSheet.insertSheet().setName(weekdays[0]); // dummy を除いた1枚目のシートを作成
   }
 
   createTable(weekdays[0]); //作成したdummy を除いた1枚目のシートに対して @createTable
@@ -42,6 +42,9 @@ function controlSheets() {
 
 //seat state => 座席の予約状況を管理する初期状態を作成する
 function seatState(){
+
+  const STATE_DATA_SHEET_NAME = "state"; //座席の状態を管理するシートの名前
+  let dataSheet = giveDataSheet(STATE_DATA_SHEET_NAME)["sheet"]; //データ管理用のシート
 
   const SEAT_STATE_ROW = 1; //シートの state を管理しているシートの 行
   const SEAT_STATE_COLUMN = 2; //シートの state を管理しているシートの 列
@@ -76,20 +79,19 @@ function seatState(){
   let strSeatStateFormatArray = JSON.stringify(seatStateFormatArray);
 
   //配列をシートに出力
-  sheet.getRange(SEAT_STATE_ROW,SEAT_STATE_COLUMN).setValue(strSeatStateFormatArray);
+  dataSheet.getRange(SEAT_STATE_ROW,SEAT_STATE_COLUMN).setValue(strSeatStateFormatArray);
 }
 
-// 座席確認用の　Format　となる table を作成 & コピー元を 1 枚目に移動
 function createTable(sheetName) {
-
   let checkReferenceSourceSheet = giveCheckSheet()["reference"];
-  let checkSheet = giveCheckSheet(sheetName)["sheet"]; //座席確認用の Sheet
 
+  //giveCheckSheet(sheetName)["sheet"] にするとシートの順番がおかしくなる sheetName のシートを active にせず dummy を activeに
+  let checkSheet = checkReferenceSourceSheet.getSheetByName(sheetName);
+  
   tableSets(checkSheet); //@tableSets
   checkSheet.activate(); //sheetをアクティブにする
-
-  //移動させる初期値
-  const SHEET_INIT_POSITION = 1;
+  
+  const SHEET_INIT_POSITION = 1; //移動させる初期値
 
   //そのシートを SHEET_INIT_POSITION 枚目に移動
   checkReferenceSourceSheet.moveActiveSheet(SHEET_INIT_POSITION);
@@ -99,7 +101,7 @@ function createTable(sheetName) {
 // 特定の 1 枚以外を削除して initSheetName という名のシートを作成する
 function deleteAndSetInitSheet(initSheetName) {
   let checkReferenceSourceSheet = giveCheckSheet()["reference"];
-  let DUMMY_CHECK_SHEET_NAME = "dummy"; //削除されない dummy 用のシート名
+  const DUMMY_CHECK_SHEET_NAME = "dummy"; //削除されない dummy 用のシート名
 
   let sheets_name = sheetsNameList(); //@here sheetNameList 関数
   sheets_name.forEach((name) => {
