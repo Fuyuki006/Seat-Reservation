@@ -1,8 +1,10 @@
+//uid に対応するユーザーの情報(実際の名前・ユーザーID・メールアドレス)
 function getSlackUserInfo(uid) {
   
-  const prop = givePropertiesService();
+  uid = "U02JRGEJUKB";
+  const prop = givePropertiesService(); //@giveProperties.gs
 
-  const OAUTH_TOKEN = prop.getProperty("OAUTH_TOKEN");
+  const OAUTH_TOKEN = prop.getProperty("OAUTH_TOKEN"); //Slackのトークン
   
   const options = {
     "method" : "get",
@@ -12,54 +14,60 @@ function getSlackUserInfo(uid) {
     }
   };
   
-  const url = "https://slack.com/api/users.list";
-  const response = UrlFetchApp.fetch(url, options);
+  const url = "https://slack.com/api/users.list"; //Slack Api でワークスペース内のユーザー取得
+  const response = UrlFetchApp.fetch(url, options); //Fetchしてくる
   
-  const members = JSON.parse(response).members;
+  const members = JSON.parse(response).members; //メンバー(ユーザー)一覧
 
-  const membersInfoMap = getSlackUserInfoProcessing(members);
+  const membersInfoMap = getSlackUserInfoProcessing(members); //@this getSlackUserInfoProcessing 関数
 
-  const indexAgainstUid = membersInfoMap[0].indexOf(uid);
+  const indexForUid = membersInfoMap[0].indexOf(uid); //uid に対する index の取得
 
-  const userRealName = membersInfoMap[1][indexAgainstUid];
+  const userRealName = membersInfoMap[1][indexForUid]; //uid に対する実際の名前の取得
 
-  const userMailAddress = membersInfoMap[2][indexAgainstUid];
+  const userMailAddress = membersInfoMap[2][indexForUid]; //uid に対するメールアドレスの取得
 
-  const userInfoArray = [userRealName,uid,userMailAddress];
+  const userInfoArray = [userRealName,uid,userMailAddress]; //uid に対する情報を配列にまとめる
 
-  return userInfoArray;
+  return userInfoArray; //情報を返す
 
   
 }
 
+//Bot や削除済みデータを除いた Slack ユーザーのデータ処理
 function getSlackUserInfoProcessing(members){
-  let membersIdList= members.map((value) => {
+  //ユーザーの ID 格納
+  let membersIdArray= members.map((value) => {
     if (!value.deleted && !value.is_bot && value.id !== "USLACKBOT"){
       return value.id;
     }
   });
 
-  let membersUserNameList= members.map((value) => {
+  //ユーザーの 実際の名前 格納
+  let membersUserNameArray= members.map((value) => {
     if (!value.deleted && !value.is_bot && value.id !== "USLACKBOT"){
       return value.real_name;
     }
   });
 
-  let membersMailList= members.map((value) =>{
+  //ユーザーの メールアドレス 格納
+  let membersMailArray= members.map((value) =>{
     if (!value.deleted && !value.is_bot && value.id !== "USLACKBOT"){
       return value.profile.email;
     }
   });
 
-  membersIdList = listFilter(membersIdList);
-  membersUserNameList =listFilter(membersUserNameList);
-  membersMailList =listFilter(membersMailList);
-  return [membersIdList,membersUserNameList,membersMailList];
+  membersIdArray = arrayFilter(membersIdArray);
+  membersUserNameArray =arrayFilter(membersUserNameArray);
+  membersMailArray =arrayFilter(membersMailArray);
+  return [membersIdArray,membersUserNameArray,membersMailArray];
 }
 
-function listFilter(list){
-  const filteredList = list.filter((value) => {
+//nullデータを処理するためのFilter [null,1,0,2,2,null,3,null,null] => [1,0,2,2,3]
+function arrayFilter(array){
+  const filteredArray = array.filter((value) => {
     return value != null;
   });
-  return filteredList;
+  
+  return filteredArray;
 }

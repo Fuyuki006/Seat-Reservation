@@ -1,24 +1,26 @@
+//Slack からのデータ受け取り 関数名は doPost 固定
 function doPost(e) {
 
-  const STR_SHEET_NAME_ERROR = "SHEET_NAME_ERROR";
-  const STR_TIME_SELECT_ERROR = "TIME_SELECT_ERROR";
-  const STR_RESERVED_ERROR = "RESERVED_ERROR";
+  //例外の種類
+  const STR_SHEET_NAME_ERROR = "SHEET_NAME_ERROR"; //適切なシート名が指定されなかった時
+  const STR_TIME_SELECT_ERROR = "TIME_SELECT_ERROR"; //適切な時間帯が予約されなかった時
+  const STR_RESERVED_ERROR = "RESERVED_ERROR"; //予約されていた時
 
-  const STR_COMPLETE_RESERVATION = "COMPLETE_RESERVATION";
+  const STR_COMPLETE_RESERVATION = "COMPLETE_RESERVATION"; //座席予約完了
 
-  const FORM_DATA_SHEET_NAME = "formdata";
+  const FORM_DATA_SHEET_NAME = "formdata"; //座席データ管理用のシート名
 
   //BLOCKS_ACTION_ID_NAME  @gasToSlack.gs で作成した blocks のそれぞれの action-id の 値
-  const SEAT_ACTIONID = "static_select-action-seat";
-  const TS_ACTIONID = "static_select-action-ts";
-  const TE_ACTIONID = "static_select-action-te";
-  const DATE_ACTIONID = "datepicker-action";
-  const CHECK_ACTIONID = "checkboxes-action";
+  const SEAT_ACTIONID = "static_select-action-seat"; //座席番号の static select
+  const TS_ACTIONID = "static_select-action-ts"; //利用開始予定時間の static select
+  const TE_ACTIONID = "static_select-action-te"; //利用終了予定時間の static select
+  const DATE_ACTIONID = "datepicker-action"; //利用年月日の datepicker
+  const CHECK_ACTIONID = "checkboxes-action"; //名前の有無の checkbox
 
-  const BUTTON_TYPE_NAME = "button";
+  const BUTTON_TYPE_NAME = "button"; //Submit ボタン button
 
   //selected 実際に選択された値を格納しているキー名
-  const SEAT_OPTION = "selected_option";
+  const SEAT_OPTION = "selected_option"; //座
   const TS_OPTION = "selected_option";
   const TE_OPTION = "selected_option";
   const DATE_OPTION = "selected_date";
