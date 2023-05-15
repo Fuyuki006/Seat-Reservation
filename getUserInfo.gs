@@ -1,7 +1,6 @@
 //uid に対応するユーザーの情報(実際の名前・ユーザーID・メールアドレス)
 function getSlackUserInfo(uid) {
   
-  uid = "U02JRGEJUKB";
   const prop = givePropertiesService(); //@giveProperties.gs
 
   const OAUTH_TOKEN = prop.getProperty("OAUTH_TOKEN"); //Slackのトークン
