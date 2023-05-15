@@ -1,10 +1,12 @@
-function timeFormat() {
+//時間関係の Format を設定する関数
+function timeSeatFormat() {
 
   //時間の種類を格納
   let timeFormatArray = ["7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
 
   let timeFormatLen = timeFormatArray.length;
 
+  //時間帯を ~ を使って定義
   let durationArray = timeFormatArray.map((time,index) => {
     if(index != timeFormatLen - 1){
     return time + "~" + timeFormatArray[index + 1];

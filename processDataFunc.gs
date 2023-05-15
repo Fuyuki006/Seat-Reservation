@@ -22,7 +22,7 @@ function processData(dataArray) {
 
   const STATE_DATA_SHEET_NAME = "state"; //座席の状態を管理するシートの名前
 
-  let timeFormatArray = timeFormat()[0]; //時間の種類の配列
+  let timeFormatArray = timeSeatFormat()[0]; //時間の種類の配列
 
   let checkSheets = checkReferenceSourceSheet.getSheets(); //シートの取得
 
@@ -50,9 +50,9 @@ function processData(dataArray) {
     return STR_TIME_SELECT_ERROR; //エラーであることを返す
   }
 
-  let durationArray = timeFormat()[1]; //時間を ~ で結合した配列 7:00~8:00など
+  let durationArray = timeSeatFormat()[1]; //時間を ~ で結合した配列 7:00~8:00など
 
-  let baseSeatArray = timeFormat()[2]; //座席の数の 1 ユニット: 10席を基準
+  let baseSeatArray = timeSeatFormat()[2]; //座席の数の 1 ユニット: 10席を基準
 
   let baseSeatLen = baseSeatArray.length; //座席数の基準の配列の長さ = 種類数
   let timeLen = durationArray.length; //時間の配列の長さ = 種類数
@@ -106,8 +106,8 @@ function processData(dataArray) {
 
   //予約されている部分があったときの処理
   if(!allZerosCheck){
-    let mergedArray = mergeOnesArray(actualReserveSegment);
-    let message = compressArray(mergedArray,timeArraySegment).join("、\n");
+    let mergedArray = mergeOnesArray(actualReserveSegment); //@here mergeOnesArray 関数
+    let message = compressArray(mergedArray,timeArraySegment).join("、\n"); //@here compressArray 関数
     return [STR_RESERVED_TIME_ERROR,message];
   }
   //予約されている部分がなかったときの処理

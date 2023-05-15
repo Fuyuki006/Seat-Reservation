@@ -1,3 +1,4 @@
+//gas から Slack に送信する Form
 function sendSlackMessage() {
   let prop = givePropertiesService(); //@giveProperties.gs
   const OAUTH_TOKEN = prop.getProperty("OAUTH_TOKEN"); // Slack APIのToken

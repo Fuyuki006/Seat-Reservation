@@ -1,3 +1,4 @@
+//シートを操作する関数
 function controlSheets() {
   let checkReferenceSourceSheet = giveCheckSheet()["reference"]; //座席確認用の Sheet
   
@@ -46,10 +47,10 @@ function seatState(){
   const SEAT_STATE_COLUMN = 2; //シートの state を管理しているシートの 列
 
   //時間を ~ で結合した配列 7:00~8:00など
-  let durationArray = timeFormat()[1];
+  let durationArray = timeSeatFormat()[1];
 
   //座席の数の 1 ユニット: 10席を基準
-  let baseSeatArray = timeFormat()[2];
+  let baseSeatArray = timeSeatFormat()[2];
 
   let baseSeatLen = baseSeatArray.length; //座席数の基準の配列の長さ = 種類数
   let timeLen = durationArray.length; //時間の配列の長さ = 種類数
@@ -98,16 +99,18 @@ function createTable(sheetName) {
 // 特定の 1 枚以外を削除して initSheetName という名のシートを作成する
 function deleteAndSetInitSheet(initSheetName) {
   let checkReferenceSourceSheet = giveCheckSheet()["reference"];
-  let DUMMY_CHECK_SHEET_NAME = "dummy";
+  let DUMMY_CHECK_SHEET_NAME = "dummy"; //削除されない dummy 用のシート名
 
-  let sheets_name = sheetsNameList();
-  sheets_name.map((name) => {
+  let sheets_name = sheetsNameList(); //@here sheetNameList 関数
+  sheets_name.forEach((name) => {
+    //dummy 以外の削除
     if(name != DUMMY_CHECK_SHEET_NAME){
       let sheet = checkReferenceSourceSheet.getSheetByName(name);
   
-      checkReferenceSourceSheet.deleteSheet(sheet);
+      checkReferenceSourceSheet.deleteSheet(sheet); //
     }
   });
+  //初期のシートを設定
   checkReferenceSourceSheet.insertSheet().setName(initSheetName);
 }
 
@@ -115,6 +118,8 @@ function deleteAndSetInitSheet(initSheetName) {
 function sheetsNameList() {
   let checkReferenceSourceSheet = giveCheckSheet()["reference"] //座席確認用SPREADSHEET 
   let checkSheets = checkReferenceSourceSheet.getSheets();
+
+  //座席確認用のシート名一覧
   let checkSheetsNames = checkSheets.map((sheet) => {
     return sheet.getSheetName();
   });
@@ -144,12 +149,12 @@ function tableSets(sheet) {
 
   const ADDITION_SPACE = 1; //前半(1~10)　から 後半(11~20) (もちろんそれ以降も)　追加するごとに設ける空白
 
-  let durationArray = timeFormat()[1]; //@timeFormat.gs
+  let durationArray = timeSeatFormat()[1]; //@timeSeatFormat.gs
 
-  let baseSeatArray = timeFormat()[2]; //@timeFormat.gs
+  let baseSeatArray = timeSeatFormat()[2]; //@timeSeatFormat.gs
 
-  let baseSeatLen = baseSeatArray.length; //@timeFormat.gs  1 unit の座席数
-  let timeLen = durationArray.length; //@timeFormat.gs 時間の間隔の種類数
+  let baseSeatLen = baseSeatArray.length; //@timeSeatFormat.gs  1 unit の座席数
+  let timeLen = durationArray.length; //@timeSeatFormat.gs 時間の間隔の種類数
 
   const ALL_SEAT_NUM = 20; //全座席数
   let seatUnitNum = parseInt(ALL_SEAT_NUM / baseSeatLen); // 1 unit ここでは 10席 が何個作れるか　何ユニットあるか

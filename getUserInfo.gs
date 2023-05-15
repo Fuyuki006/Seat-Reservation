@@ -1,6 +1,6 @@
 //uid に対応するユーザーの情報(実際の名前・ユーザーID・メールアドレス)
 function getSlackUserInfo(uid) {
-  
+
   const prop = givePropertiesService(); //@giveProperties.gs
 
   const OAUTH_TOKEN = prop.getProperty("OAUTH_TOKEN"); //Slackのトークン
@@ -13,12 +13,12 @@ function getSlackUserInfo(uid) {
     }
   };
   
-  const url = "https://slack.com/api/users.list"; //Slack Api でワークスペース内のユーザー取得
-  const response = UrlFetchApp.fetch(url, options); //Fetchしてくる
+  const url = "https://slack.com/api/users.list"; //Slack API でワークスペース内のユーザー取得
+  const response = UrlFetchApp.fetch(url, options); // Slack APIへのリクエストを送信
   
   const members = JSON.parse(response).members; //メンバー(ユーザー)一覧
 
-  const membersInfoMap = getSlackUserInfoProcessing(members); //@this getSlackUserInfoProcessing 関数
+  const membersInfoMap = getSlackUserInfoProcessing(members); //@here getSlackUserInfoProcessing 関数
 
   const indexForUid = membersInfoMap[0].indexOf(uid); //uid に対する index の取得
 
@@ -56,9 +56,9 @@ function getSlackUserInfoProcessing(members){
     }
   });
 
-  membersIdArray = arrayFilter(membersIdArray);
-  membersUserNameArray =arrayFilter(membersUserNameArray);
-  membersMailArray =arrayFilter(membersMailArray);
+  membersIdArray = arrayFilter(membersIdArray); //Filter したメンバー全員の ID
+  membersUserNameArray =arrayFilter(membersUserNameArray); //Filter したメンバー全員の ユーザー名
+  membersMailArray =arrayFilter(membersMailArray); //Filter したメンバー全員の メールアドレス
   return [membersIdArray,membersUserNameArray,membersMailArray];
 }
 
