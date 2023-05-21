@@ -3,7 +3,7 @@ Google Apps Script で書き、Slack API と連携させた座席予約用のア
 
 座席の取り合いになることを回避する目的で作成しました。
 
-## Preview
+## プレビュー
 <div>
   <p align="center">
     <img width="80%"src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/55e8ebad-a11e-4940-9c5c-6c8196a1314d">
@@ -17,6 +17,9 @@ Google Apps Script で書き、Slack API と連携させた座席予約用のア
   </p>
 </div>
 
+## 使い方
+-
+
 ## 使用している技術
 
 ### Google Apps Script
@@ -27,10 +30,15 @@ Google Apps Script で書き、Slack API と連携させた座席予約用のア
 
 ### Slack API
 - コミュニケーションツールとして、Slack が使用されていた
+- Slack で既に備わっている便利な機能も使えたから (メンション，DMなど)
 
 という点から使用。
+
+## 機能
+- 座席の予約
 
 ## 改善点
 - 座席予約のためのSlack 上にある UI
 - 座席予約状況の表示 (配色)
+- 機能の追加 (削除機能など)
 - プログラムの可読性
