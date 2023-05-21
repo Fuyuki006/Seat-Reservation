@@ -8,26 +8,26 @@ Google Apps Script で書き、Slack API と連携させた座席予約用のア
 ### images
 <div>
   <p align="center">
-    <img width="80%"src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/55e8ebad-a11e-4940-9c5c-6c8196a1314d">
+    <img width="80%"src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/17531328-6592-4389-9a9b-79bfc41d0008">
   </p>
 </div>
                                                                                                                            
 <div display="flex">
   <p align="center">
-    <img width="40%" src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/edac7444-c6fa-45b4-a2c7-a48f39659284">  
-    <img width="40%" src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/90136db1-58fb-4df1-ac55-98d93a61e1e8">
+    <img width="40%" src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/c7dd377c-bc7a-4408-91e1-4e9900bc228a">  
+    <img width="40%" src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/7da9d42c-edb5-4ab2-8bb0-594321cfe188">
   </p>
 </div>
 
 ### gifs
 
 #### 座席の予約
-![Videotogif](https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/fac33e2a-7b3d-4c1b-89bd-040fc5ec8d6a)
+
 
 #### 予約の確認
 Slack に埋め込んだ、座席を確認するためのスプレッドシート上での確認
 
-![download](https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/fb1e7889-8449-42da-890e-0b9357a635c7)
+
 
 ## 実装手順
 - ソース(Google Apps Script) のダウンロード
