@@ -4,7 +4,7 @@
   "description": "Seat-Reservation with Google Apps Script",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Fuyuki006/Seat-Reservation.git"
+    "url": "https://github.com/Fuyuki006/Seat-Reservation.git"a
   },
   "scripts": {
     "login": "clasp login",
