@@ -1,0 +1,8 @@
+{
+  "name": "Seat-Reservation",
+  "version": "1.0.0",
+  "description": "Seat-Reservation with Google Apps Script",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fuyuki006/Seat-Reservation.git"
+  }
