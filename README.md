@@ -34,7 +34,7 @@ Slack に埋め込んだ、座席を確認するためのスプレッドシー�
 ## 実装手順
 - ソース(Google Apps Script) のダウンロード
 1. [Node.js のインストール](https://nodejs.org/en/download)
-2.
+2. Git Bash 上で以下のコマンドを実行
 
 - スプレッドシートの作成
   - 座席確認用シート
