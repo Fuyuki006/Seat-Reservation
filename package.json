@@ -12,6 +12,8 @@
     "deploy": "rimraf dist && npm run build && npx clasp push"
   },
   "devDependencies": {
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "mkdirp": "^1.0.4",
+    "@google/clasp": "^2.4.1"
   }
 }
