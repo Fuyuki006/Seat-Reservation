@@ -9,7 +9,7 @@
   "scripts": {
     "login": "clasp login",
     "setup": "rimraf .clasp.json && mkdirp dist && clasp create --type sheets --title \"Seat-Reservation\" --rootDir ./dist && mv ./dist/.clasp.json ./.clasp.json && rimraf dist",
-    "deploy": "rimraf dist && npm run build && npx clasp push",
+    "deploy": "rimraf dist && npx clasp push",
     "build": "cross-env NODE_ENV=production webpack"
   },
   "devDependencies": {
