@@ -33,15 +33,31 @@ Slack に埋め込んだ、座席を確認するためのスプレッドシー�
 
 ## 実装手順
 - ソース(Google Apps Script) のダウンロード
-1. [Node.js のインストール](https://nodejs.org/en/download)
-2. Git Bash 上で以下のコマンドを実行
+1. [Node.js](https://nodejs.org/en/download) バージョン 4.7.4 以降のインストール
+2. Google Apps Script API を オン にする。[こちらから](https://script.google.com/home/usersettings)。
+3. Git Bash 上で以下のコマンドを実行
 
-- スプレッドシートの作成
-  - 座席確認用シート
-  1.
-  2.
-  - ソース管理用シート (無くても良い)
-  - 座席予約のデータ管理用シート
+リポジトリ等のインストール
+```bash
+git clone https://github.com/Fuyuki006/Seat-Reservation.git
+cd Seat-Reservation
+npm install
+```
+
+[clasp](https://github.com/google/clasp) へのログイン
+```bash
+npm run login
+```
+
+シートの作成等
+```bash
+npm run setup
+```
+
+作成したシートへのデプロイ
+```bash
+npm run deploy
+```
 
 ## 注意
 
