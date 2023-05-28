@@ -10,7 +10,7 @@
     "login": "clasp login",
     "setup": "rimraf .clasp.json && mkdirp dist && clasp create --type sheets --title \"Seat-Reservation\" --rootDir ./dist && mv ./dist/.clasp.json ./.clasp.json && cp ./src/* ./dist && cp appsscript.json ./dist",
     "deploy": "npx clasp push",
-    "test": "jq '.timeZone' appsscript.json"
+    "test": "cat appsscript.json | jq '.timeZone'"
   },
   "devDependencies": {
     "rimraf": "^3.0.2",
