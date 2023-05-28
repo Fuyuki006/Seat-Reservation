@@ -22,6 +22,7 @@ Google Apps Script で書き、Slack API と連携させた座席予約用のア
 ### gifs
 
 #### 座席の予約
+フォームでの操作
 ![download](https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/3ff09fcc-7a9f-4fd7-bc1f-f0e21fba2248)
 
 
