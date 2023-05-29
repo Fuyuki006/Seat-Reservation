@@ -103,13 +103,13 @@ function deleteAndSetInitSheet(initSheetName) {
   let checkReferenceSourceSheet = giveCheckSheet()["reference"];
   const DUMMY_CHECK_SHEET_NAME = "dummy"; //削除されない dummy 用のシート名
 
-  let sheets_name = sheetsNameList(); //@here sheetNameList 関数
-  sheets_name.forEach((name) => {
+  let sheetNames = sheetsNameList(); //@here sheetNameList 関数
+  sheetNames.forEach((name) => {
     //dummy 以外の削除
     if(name != DUMMY_CHECK_SHEET_NAME){
       let sheet = checkReferenceSourceSheet.getSheetByName(name);
   
-      checkReferenceSourceSheet.deleteSheet(sheet); //
+      checkReferenceSourceSheet.deleteSheet(sheet); //sheet を削除する
     }
   });
   //初期のシートを設定

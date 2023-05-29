@@ -151,11 +151,16 @@ function doPost(e) {
 //{"fruit":{"apple":1,"banana":3,"grape":0},"color":{"red":2,"blue":1,"green":3}} => 
 //{apple=1.0, banana=3.0, blue=1.0, green=3.0, grape=0.0, red=2.0}
 function getCompressObj(obj){
+
+  //中身の取り出し {"fruit":{"apple":1,"banana":3,"grape":0},"color":{"red":2,"blue":1,"green":3}} => 
+  //[{"apple":1,"banana":3,"grape":0},{"red":2,"blue":1,"green":3}]
   let objInVal= 
   Object.entries(obj).map(([innerKey,innerValue]) => {
     return innerValue;
   });
 
+  //中身の結合(圧縮) [{"apple":1,"banana":3,"grape":0},{"red":2,"blue":1,"green":3}] => 
+  //{"apple":1,"banana":3,"grape":0,"red":2,"blue":1,"green":3}
   let compressObj = objInVal.reduce((acc,obj) => {
     return Object.assign(acc,obj);
   },{});
@@ -190,7 +195,7 @@ function getUserChannelId(userid){
   let prop = givePropertiesService();
   let url = "https://slack.com/api/conversations.open"; 
 
-  let OAUTH_TOKEN = prop.getProperty("OAUTH_TOKEN");
+  const OAUTH_TOKEN = prop.getProperty("OAUTH_TOKEN");
   
   let payload = {
     "token" : OAUTH_TOKEN,
@@ -217,7 +222,7 @@ function postMessage(userid,message,channelId) {
   let prop = givePropertiesService();
   let url = "https://slack.com/api/chat.postMessage";
 
-  let OAUTH_TOKEN = prop.getProperty("OAUTH_TOKEN");
+  const OAUTH_TOKEN = prop.getProperty("OAUTH_TOKEN");
   
   let payload = {
     "token" : OAUTH_TOKEN,
