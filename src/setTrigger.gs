@@ -22,15 +22,17 @@ function setTrigger() {
   let nowDate = now.getDate(); //日
 
   const TIMEZONE = "Asia/Tokyo"; //TimeZone の設定
+  
+  const TRIGGER_DAY = ScriptApp.WeekDay.MONDAY; //曜日の設定
 
   const WEEK_DAYS_NUM = 7; //一週間分の日付
 
-  const HOUR = 0; //何時にトリガーを発生させるか
+  let hour = 0; //何時にトリガーを発生させるか
 
   const MINUTE = 0; //何分にトリガーを発生させるか
 
-  //現在から一週間後の HOUR 時 MINUTE 分 という時間
-  const nextWeekDateZeros = new Date(nowYear,nowMonth,nowDate + WEEK_DAYS_NUM,HOUR,MINUTE);
+  //現在から一週間後の hour 時 MINUTE 分 という時間
+  let nextWeekDateZeros = new Date(nowYear,nowMonth,nowDate + WEEK_DAYS_NUM,hour,MINUTE);
 
   //controlSheets 関数を動かすトリガーの設定
   ScriptApp.newTrigger(STR_CONTROL_SHEET)
@@ -38,7 +40,15 @@ function setTrigger() {
   .inTimezone(TIMEZONE) //TimeZone
   .at(nextWeekDateZeros) //nextWeekDateZeros の時間に
   .create(); //トリガーを設定
+
+  hour = 1 //1 時を設定
+
+  //setTrigger 関数を動かすトリガーの設定
+  ScriptApp.newTrigger(STR_SET_TRIGGER)
+  .timeBased() //時間主導型
+  .inTimezone(TIMEZONE) //TimeZone
+  .onWeekDay(TRIGGER_DAY) //毎週 TRIGGER_DAY 
+  .atHour(hour) //hour 時に
+  .create(); //トリガーを設定
   
 }
-
-
