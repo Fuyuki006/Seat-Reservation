@@ -62,7 +62,7 @@ npm run deploy
 
 - 他のスプレッドシートの作成
 1. [こちらから](https://drive.google.com/drive/my-drive)、新規 -> Google スプレッドシート で新しいスプレッドシートを作成する。
-2. スプレッドシートの URL で "https://docs.google.com/spreadsheets/d/<スプレッドシートのID>/edit" にある スプレッドシートのID を控えておく。
+2. スプレッドシートの URL で `https://docs.google.com/spreadsheets/d/<スプレッドシートのID>/edit` にある スプレッドシートのID を控えておく。
 3. 1\. と 2. の操作を [座席を確認するためのスプレッドシート](#実装手順) と 座席のデータを管理するためのシート の 2枚分 繰り返す。
 ## 注意
 
