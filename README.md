@@ -61,9 +61,28 @@ npm run deploy
 ```
 
 - 他のスプレッドシートの作成
-1. [こちらから](https://drive.google.com/drive/my-drive)、新規 -> Google スプレッドシート で新しいスプレッドシートを作成する。
-2. スプレッドシートの URL で `https://docs.google.com/spreadsheets/d/<スプレッドシートのID>/edit` にある スプレッドシートのID を控えておく。
-3. 1\. と 2. の操作を [座席を確認するためのスプレッドシート](#実装手順) と 座席のデータを管理するためのシート の 2枚分 繰り返す。
+1. [こちらから](https://drive.google.com/drive/my-drive)、新規 -> Google スプレッドシート で新しいスプレッドシートを作成する
+2. スプレッドシートの URL で `https://docs.google.com/spreadsheets/d/<スプレッドシートのID>/edit` にある スプレッドシートのID を控えておく
+3. 1\. と 2. の操作を [座席を確認するためのスプレッドシート](#実装手順) と 座席のデータを管理するためのシート の 2枚分 繰り返す
+
+- Slack API の設定1
+1. [こちら](https://api.slack.com/apps)にアクセス
+2. Create New App -> From an app manifest を選択
+3. アプリを動作させる Slack ワークスペースを選択
+4. JSON に manifest.json の中身をコピー & ペースト
+5. 「Create」 する
+6. Slack API の設定2 に続く
+
+- Slack API の設定2
+1. Settings の Install App -> Install Workspace を許可して、ワークスペースに追加
+
+
+- スクリプトプロパティの設定
+7. [こちら](https://drive.google.com/drive/my-drive)にアクセスし、先ほど作成されたソース用スプレッドシート(seat-reservation-srcという名前のスプレッドシート) を開く。
+8. 拡張機能 -> Apps Script で Google Apps Scriptを開く。
+9. 歯車のマーク(プロジェクトの設定)から，「スクリプトプロパティを追加」。
+
+
 ## 注意
 
 
