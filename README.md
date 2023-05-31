@@ -71,11 +71,8 @@ npm run deploy
 3. アプリを動作させる Slack ワークスペースを選択
 4. JSON に manifest.json の中身をコピー & ペースト
 5. 「Create」 する
-6. Slack API の設定2 に続く
-
-- Slack API の設定2
-1. Settings の Install App -> Install Workspace を許可して、ワークスペースに追加
-
+6. Settings の Install App -> Install Workspace を許可して、ワークスペースに追加
+7. Features の OAuth & Permissions にある OAuth Tokens for Your Workspace で 「xoxb-」から始まる Bot User OAuth Token を控えておく
 
 - スクリプトプロパティの設定
 7. [こちら](https://drive.google.com/drive/my-drive)にアクセスし、先ほど作成されたソース用スプレッドシート(seat-reservation-srcという名前のスプレッドシート) を開く。
