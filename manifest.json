@@ -1,0 +1,38 @@
+{
+    "display_information": {
+        "name": "Seat_Reservation_App",
+        "description": "座席予約用App",
+        "background_color": "#303236"
+    },
+    "features": {
+        "bot_user": {
+            "display_name": "Seat_Reservation_App",
+            "always_online": false
+        }
+    },
+    "oauth_config": {
+        "scopes": {
+            "user": [
+                "channels:history"
+            ],
+            "bot": [
+                "calls:read",
+                "channels:history",
+                "channels:join",
+                "channels:manage",
+                "channels:read",
+                "chat:write",
+                "groups:write",
+                "im:write",
+                "mpim:write",
+                "users:read",
+                "users:read.email"
+            ]
+        }
+    },
+    "settings": {
+        "org_deploy_enabled": false,
+        "socket_mode_enabled": false,
+        "token_rotation_enabled": false
+    }
+}
