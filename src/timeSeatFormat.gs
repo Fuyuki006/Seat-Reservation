@@ -1,4 +1,4 @@
-//時間関係の Format を設定する関数
+//時間と座席関係の Format を設定する関数
 function timeSeatFormat() {
 
   //時間の種類を格納
