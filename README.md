@@ -37,6 +37,8 @@ Slack に埋め込んだ、座席を確認するためのスプレッドシー�
 必要事項の未記入
 ![download](https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/dc1ace66-4016-42b0-9b57-43843e54f885)
 
+その週以外の日付の選択
+![download](https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/72b4419a-7582-439e-8283-a7af931e62a6)
 
 ## 実装手順
 - ソース(Google Apps Script) のダウンロード
