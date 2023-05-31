@@ -65,7 +65,7 @@ npm run deploy
 2. スプレッドシートの URL で `https://docs.google.com/spreadsheets/d/<スプレッドシートのID>/edit` にある スプレッドシートのID を控えておく
 3. 1\. と 2. の操作を [座席を確認するためのスプレッドシート](#実装手順) と 座席のデータを管理するためのシート の 2枚分 繰り返す
 
-- Slack API の設定1
+- Slack API の設定
 1. [こちら](https://api.slack.com/apps)にアクセス
 2. Create New App -> From an app manifest を選択
 3. アプリを動作させる Slack ワークスペースを選択
