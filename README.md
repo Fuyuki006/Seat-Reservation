@@ -68,10 +68,10 @@ npm run setup
 npm run deploy
 ```
 
-- <a id="description_create_sheet">他のスプレッドシートの作成</a>
+- <a id="description_create_sheet"></a>他のスプレッドシートの作成
 1. [こちらから](https://drive.google.com/drive/my-drive)、新規 -> Google スプレッドシート で新しいスプレッドシートを作成する
 2. スプレッドシートの URL で `https://docs.google.com/spreadsheets/d/<スプレッドシートのID>/edit` にある スプレッドシートのID を控えておく
-3. 1\. と 2. の操作を [座席を確認するためのスプレッドシート](#実装手順) と 座席のデータを管理するためのシート の 2枚分 繰り返す
+3. 1\. と 2. の操作を [座席を確認するためのスプレッドシート](#実装手順) と 座席のデータを管理するためのスプレッドシート の 2枚分 繰り返す
 
 - Slack API の設定
 1. [こちら](https://api.slack.com/apps)にアクセス
@@ -92,7 +92,7 @@ npm run deploy
 | OAUTH_TOKEN | [Bot User OAuth Token (xoxb-...)](#link7) |
 | CHANNEL_ID | [フォーム](#座席の予約) を送信する Slack の チャンネルID |
 | CHECK_SPREADSHEET_ID | [こちら](#description_create_sheet) で控えた 座席を確認するためのスプレッドシート の スプレッドシートID |
-| DATA_SPREADSHEET_ID | [こちら](#description_create_sheet) で控えた 座席のデータを管理するためのシート の スプレッドシートID |
+| DATA_SPREADSHEET_ID | [こちら](#description_create_sheet) で控えた 座席のデータを管理するためのスプレッドシート の スプレッドシートID |
 
 
 
