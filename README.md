@@ -83,10 +83,13 @@ npm run deploy
 7. Features の OAuth & Permissions にある OAuth Tokens for Your Workspace で 「xoxb-」から始まる Bot User OAuth Token を控えておく
 
 - スクリプトプロパティの設定
-7. [こちら](https://drive.google.com/drive/my-drive)にアクセスし、先ほど作成されたソース用スプレッドシート(seat-reservation-srcという名前のスプレッドシート) を開く
+7. [こちら][1](https://drive.google.com/drive/my-drive)にアクセスし、先ほど作成されたソース用スプレッドシート(seat-reservation-srcという名前のスプレッドシート) を開く
 8. 拡張機能 -> Apps Script で Google Apps Scriptを開く
 9. 歯車のマーク(プロジェクトの設定)から、「スクリプトプロパティを追加」
-10. 
+
+| プロパティ名 | プロパティの値 |
+| ----------- | ------------- |
+| OAUTH_TOKEN | [Bot User OAuth Token (xoxb-...)](1) |
 
 
 ## 注意
