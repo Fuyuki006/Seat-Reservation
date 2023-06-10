@@ -89,7 +89,7 @@ npm run deploy
 
 | プロパティ名 | プロパティの値 |
 | ----------- | ------------- |
-| OAUTH_TOKEN | [Bot User OAuth Token (xoxb-...)]("7") |
+| OAUTH_TOKEN | [Bot User OAuth Token (xoxb-...)](7) |
 
 
 ## 注意
