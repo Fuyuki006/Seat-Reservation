@@ -90,6 +90,8 @@ npm run deploy
 | プロパティ名 | プロパティの値 |
 | ----------- | ------------- |
 | OAUTH_TOKEN | [Bot User OAuth Token (xoxb-...)](#link7) |
+| CHANNEL_ID | [フォーム](#座席の予約) を送信する Slack の チャンネルID |
+
 
 
 ## 注意
