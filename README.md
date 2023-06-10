@@ -80,7 +80,7 @@ npm run deploy
 4. JSON に manifest.json の中身をコピー & ペースト
 5. 「Create」 する
 6. Settings の Install App -> Install Workspace を許可して、ワークスペースに追加
-7. Features の OAuth & Permissions にある OAuth Tokens for Your Workspace で 「xoxb-」から始まる Bot User OAuth Token を控えておく<a name="7"></a>
+7. <a id="link7"></a>Features の OAuth & Permissions にある OAuth Tokens for Your Workspace で 「xoxb-」から始まる Bot User OAuth Token を控えておく
 
 - スクリプトプロパティの設定
 1. [こちら](https://drive.google.com/drive/my-drive)にアクセスし、先ほど作成されたソース用スプレッドシート(seat-reservation-srcという名前のスプレッドシート) を開く
@@ -89,7 +89,7 @@ npm run deploy
 
 | プロパティ名 | プロパティの値 |
 | ----------- | ------------- |
-| OAUTH_TOKEN | [Bot User OAuth Token (xoxb-...)](7) |
+| OAUTH_TOKEN | [Bot User OAuth Token (xoxb-...)](#link7) |
 
 
 ## 注意
