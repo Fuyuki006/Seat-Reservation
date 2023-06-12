@@ -126,10 +126,17 @@ npm run deploy
 
 <div display="flex">
   <p align="center">
-    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/a9e6570b-a794-4d08-8106-0e2ff00c6357"> 
+    <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/a9e6570b-a794-4d08-8106-0e2ff00c6357"> 
   </p>
 </div>
 
+8. 「アクセスできるユーザー」を「全員」に変更する (Slack APIで利用可能にするため)
+
+<div display="flex">
+  <p align="center">
+    <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/00591276-deb1-4897-a573-201c550b1bd1"> 
+  </p>
+</div>
 ## 注意
 
 
