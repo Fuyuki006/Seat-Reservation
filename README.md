@@ -112,6 +112,16 @@ npm run deploy
   </p>
 </div>
 
+4. ソース用スプレッドシート(seat-reservation-src) のシートの画面に戻る
+5. 拡張機能 -> Apps Script で Google Apps Scriptを開く
+6. 以下の画像の赤枠の「デプロイ」を押す
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/eada70d7-59d0-4a3d-a238-0a3295f06fde"> 
+  </p>
+</div>
+
 ## 注意
 
 
