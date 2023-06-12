@@ -96,13 +96,22 @@ npm run deploy
 
 ・Google Apps Script のデプロイ
 1. ソース用スプレッドシート(seat-reservation-src) を開く
-2. 
+2. 以下の画像の赤枠にある「共有」を押す
 
 <div display="flex">
   <p align="center">
-    <img width="40%" src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/fa367035-7c12-4385-973b-72efeb0c39fa"> 
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/fa367035-7c12-4385-973b-72efeb0c39fa"> 
   </p>
 </div>
+
+3. 以下の画像にある「一般的なアクセス」で「リンクを知っている全員」にする (Slack API で Google Apps Script を利用可能にするため)
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/c7df3f13-ed47-4b13-9ae2-477a08179b6e"> 
+  </p>
+</div>
+
 ## 注意
 
 
