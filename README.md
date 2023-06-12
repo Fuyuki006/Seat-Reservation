@@ -85,7 +85,7 @@ npm run deploy
 - スクリプトプロパティの設定
 1. [こちら](https://drive.google.com/drive/my-drive)にアクセスし、先ほど作成されたソース用スプレッドシート(seat-reservation-srcという名前のスプレッドシート) を開く
 2. 拡張機能 -> Apps Script で Google Apps Scriptを開く
-3. 歯車のマーク(プロジェクトの設定)から、「スクリプトプロパティを追加」
+3. 歯車のマーク(プロジェクトの設定)から、「スクリプトプロパティを追加」で以下のプロパティを設定
 
 | プロパティ名 | プロパティの値 |
 | ----------- | ------------- |
@@ -94,9 +94,15 @@ npm run deploy
 | CHECK_SPREADSHEET_ID | [こちら](#description_create_sheet) で控えた 座席を確認するためのスプレッドシート の スプレッドシートID |
 | DATA_SPREADSHEET_ID | [こちら](#description_create_sheet) で控えた 座席のデータを管理するためのスプレッドシート の スプレッドシートID |
 
+・Google Apps Script のデプロイ
+1. ソース用スプレッドシート(seat-reservation-src) を開く
+2. 
 
-
-
+<div display="flex">
+  <p align="center">
+    <img width="40%" src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/fa367035-7c12-4385-973b-72efeb0c39fa"> 
+  </p>
+</div>
 ## 注意
 
 
