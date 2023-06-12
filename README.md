@@ -138,13 +138,31 @@ npm run deploy
   </p>
 </div>
 
-9. アクセスを承認する必要がある場合は承認する
+9. 「デプロイ」する
+
+<div display="flex">
+  <p align="center">
+    <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/e862e88d-1788-4813-bec5-148a645bb79b"> 
+  </p>
+</div>
+
+10. アクセスを承認する必要がある場合は承認する
 
 <div display="flex">
   <p align="center">
     <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/424aaf7e-a14f-4565-8716-db572c131420"> 
   </p>
 </div>
+
+11. 「ウェブアプリ」の URLを「コピー」するか控えておく
+
+<div display="flex">
+  <p align="center">
+    <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/8b793fdc-ee93-432a-8796-a65b1052a0e4"> 
+  </p>
+</div>
+
+
 ## 注意
 
 
