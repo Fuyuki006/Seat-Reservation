@@ -137,6 +137,14 @@ npm run deploy
     <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/00591276-deb1-4897-a573-201c550b1bd1"> 
   </p>
 </div>
+
+9. アクセスを承認する必要がある場合は承認する
+
+<div display="flex">
+  <p align="center">
+    <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/424aaf7e-a14f-4565-8716-db572c131420"> 
+  </p>
+</div>
 ## 注意
 
 
