@@ -164,6 +164,14 @@ npm run deploy
 
 - Slack API の設定-2
 1. [こちらから](https://api.slack.com/apps)、「Slack API の設定-1」 で「Create New App」した「App」の画面に戻る
+2. 「Features」の「Interactivity & Shortcuts」
+
+<div display="flex">
+  <p align="center">
+    <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/556bf8d5-4ab8-42f8-bd50-822253c99c5a"> 
+  </p>
+</div>
+
 
 ## 注意
 
