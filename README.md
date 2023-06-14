@@ -168,7 +168,7 @@ npm run deploy
 
 <div display="flex">
   <p align="center">
-    <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/556bf8d5-4ab8-42f8-bd50-822253c99c5a"> 
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/556bf8d5-4ab8-42f8-bd50-822253c99c5a"> 
   </p>
 </div>
 
