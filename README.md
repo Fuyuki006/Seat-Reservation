@@ -94,7 +94,7 @@ npm run deploy
 | CHECK_SPREADSHEET_ID | [こちら](#description_create_sheet) で控えた 座席を確認するためのスプレッドシート の スプレッドシートID |
 | DATA_SPREADSHEET_ID | [こちら](#description_create_sheet) で控えた 座席のデータを管理するためのスプレッドシート の スプレッドシートID |
 
-・Google Apps Script のデプロイ
+- Google Apps Script のデプロイ
 1. ソース用スプレッドシート(seat-reservation-src) を開く
 2. 以下の画像の赤枠にある「共有」を押す
 
@@ -169,6 +169,23 @@ npm run deploy
 <div display="flex">
   <p align="center">
     <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/556bf8d5-4ab8-42f8-bd50-822253c99c5a"> 
+  </p>
+</div>
+
+3. 「Interactivity & Shortcuts」を 「On」にする
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/a6e3d8dc-8168-40b9-b4c0-d68e2a640bad"> 
+  </p>
+</div>
+
+4. 「Google Apps Script のデプロイ」の「11.「ウェブアプリ」の URLを「コピー」するか控えておく」で控えた URL を「Request URL」の下の入力欄に入力する
+5. 「Save Changes」を押す
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/13c6810e-a0a3-441e-bc1d-60a4839a0c32"> 
   </p>
 </div>
 
