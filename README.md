@@ -154,7 +154,7 @@ npm run deploy
   </p>
 </div>
 
-11. 「ウェブアプリ」の URLを「コピー」するか控えておく
+11. <a id="refrain_url"></a>「ウェブアプリ」の URLを「コピー」するか控えておく
 
 <div display="flex">
   <p align="center">
@@ -180,7 +180,7 @@ npm run deploy
   </p>
 </div>
 
-4. 「Google Apps Script のデプロイ」の「11.「ウェブアプリ」の URLを「コピー」するか控えておく」で控えた URL を「Request URL」の下の入力欄に入力する
+4. 「Google Apps Script のデプロイ」の「[11.「ウェブアプリ」の URLを「コピー」するか控えておく](#refrain_url)」で控えた URL を「Request URL」の下の入力欄に入力する
 5. 「Save Changes」を押す
 
 <div display="flex">
