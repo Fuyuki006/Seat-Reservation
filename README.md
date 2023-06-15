@@ -203,7 +203,7 @@ npm run deploy
 
 <div display="flex">
   <p align="center">
-    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/e4d96f97-3ac2-44bb-a083-972f1ff69fed"> 
+    <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/e4d96f97-3ac2-44bb-a083-972f1ff69fed"> 
   </p>
 </div>
 
@@ -211,7 +211,7 @@ npm run deploy
 
 <div display="flex">
   <p align="center">
-    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/a9b91807-7732-4c11-bff1-6b79562480ab"> 
+    <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/a9b91807-7732-4c11-bff1-6b79562480ab"> 
   </p>
 </div>
 ## 注意
