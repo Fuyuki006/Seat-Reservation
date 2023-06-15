@@ -214,6 +214,7 @@ npm run deploy
     <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/a9b91807-7732-4c11-bff1-6b79562480ab"> 
   </p>
 </div>
+
 ## 注意
 
 
