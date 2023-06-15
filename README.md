@@ -85,12 +85,12 @@ npm run deploy
 - スクリプトプロパティの設定
 1. [こちら](https://drive.google.com/drive/my-drive)にアクセスし、先ほど作成されたソース用スプレッドシート(seat-reservation-srcという名前のスプレッドシート) を開く
 2. 拡張機能 -> Apps Script で Google Apps Scriptを開く
-3. 歯車のマーク(プロジェクトの設定)から、「スクリプトプロパティを追加」で以下のプロパティを設定
+3. <a id="property_settings"></a>歯車のマーク(プロジェクトの設定)から、「スクリプトプロパティを追加」で以下のプロパティを設定
 
 | プロパティ名 | プロパティの値 |
 | ----------- | ------------- |
 | OAUTH_TOKEN | [Bot User OAuth Token (xoxb-...)](#link7) |
-| CHANNEL_ID | [フォーム](#座席の予約) を送信する Slack の チャンネルID |
+| CHANNEL_ID | [フォーム](#座席の予約) を送信する Slack のワークスペースにある任意の チャンネルID |
 | CHECK_SPREADSHEET_ID | [こちら](#description_create_sheet) で控えた 座席を確認するためのスプレッドシート の スプレッドシートID |
 | DATA_SPREADSHEET_ID | [こちら](#description_create_sheet) で控えた 座席のデータを管理するためのスプレッドシート の スプレッドシートID |
 
@@ -189,7 +189,31 @@ npm run deploy
   </p>
 </div>
 
+- Google Apps Script からのフォームの送信
+1. [こちら](#property_settings)で「CHANNEL_ID」に設定した「Slack のワークスペースにある任意のチャンネル」に移動
+2. チャンネル名をクリック
 
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/83df0824-5a2e-47f2-b06b-ed6ec34227bf"> 
+  </p>
+</div>
+
+3. 「インテグレーション」をクリック
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/e4d96f97-3ac2-44bb-a083-972f1ff69fed"> 
+  </p>
+</div>
+
+4. 「アプリを追加する」をクリック
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/a9b91807-7732-4c11-bff1-6b79562480ab"> 
+  </p>
+</div>
 ## 注意
 
 
