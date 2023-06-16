@@ -114,6 +114,19 @@ npm run deploy
 
 4. ソース用スプレッドシート(seat-reservation-src) のシートの画面に戻る
 5. 拡張機能 -> Apps Script で Google Apps Scriptを開く
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/5585e44a-078e-4264-88f5-cae9e54a4105"> 
+  </p>
+</div>
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/4e3b003a-f1f8-4571-9cfc-78fd33f26ed8"> 
+  </p>
+</div>
+
 6. 以下の画像の「デプロイ」を押し、赤枠の「新しいデプロイ」を押す
 
 <div display="flex">
@@ -212,6 +225,21 @@ npm run deploy
 <div display="flex">
   <p align="center">
     <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/a9b91807-7732-4c11-bff1-6b79562480ab"> 
+  </p>
+</div>
+
+5. [こちら](https://drive.google.com/drive/my-drive)から、ソース用スプレッドシート(seat-reservation-src) を開く
+6. 拡張機能 -> Apps Script で Google Apps Scriptを開く
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/5585e44a-078e-4264-88f5-cae9e54a4105"> 
+  </p>
+</div>
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/4e3b003a-f1f8-4571-9cfc-78fd33f26ed8"> 
   </p>
 </div>
 
