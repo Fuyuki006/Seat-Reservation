@@ -176,7 +176,7 @@ npm run deploy
 </div>
 
 - Slack API の設定-2
-1. [こちらから](https://api.slack.com/apps)、「Slack API の設定-1」 で「Create New App」した「App」の画面に戻る
+1. [こちらから](https://api.slack.com/apps)、「[Slack API の設定-1](#slack_api_settings_1)」 で「Create New App」した「App」の画面に戻る
 2. 「Features」の「Interactivity & Shortcuts」
 
 <div display="flex">
@@ -228,8 +228,16 @@ npm run deploy
   </p>
 </div>
 
-5. [こちら](https://drive.google.com/drive/my-drive)から、ソース用スプレッドシート(seat-reservation-src) を開く
-6. 拡張機能 -> Apps Script で Google Apps Scriptを開く
+5. 「[Slack API の設定-1](#slack_api_settings_1)」 でワークスペースに追加した「App」があるので、それを「追加」する
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/e7a3d1ee-51a4-43d9-a96c-a93b4609e5db"> 
+  </p>
+</div>
+
+6. [こちら](https://drive.google.com/drive/my-drive)から、ソース用スプレッドシート(seat-reservation-src) を開く
+7. 拡張機能 -> Apps Script で Google Apps Scriptを開く
 
 <div display="flex">
   <p align="center">
@@ -242,6 +250,8 @@ npm run deploy
     <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/4e3b003a-f1f8-4571-9cfc-78fd33f26ed8"> 
   </p>
 </div>
+
+
 
 ## 注意
 
