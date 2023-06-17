@@ -236,7 +236,7 @@ npm run deploy
   </p>
 </div>
 
-6. [こちら](https://drive.google.com/drive/my-drive)から、ソース用スプレッドシート(seat-reservation-src) を開く
+6. 「[こちら](https://drive.google.com/drive/my-drive)」から、ソース用スプレッドシート(seat-reservation-src) を開く
 7. 拡張機能 -> Apps Script で Google Apps Scriptを開く
 
 <div display="flex">
@@ -251,7 +251,13 @@ npm run deploy
   </p>
 </div>
 
+8. 「src/gasToSlack.gs」を「実行」して、チャンネルに実際に使用されるフォームが送信されるかどうか確認する (認証が必要な場合は「許可」する)。成功した場合は、指定したチャンネルにフォームが送信される。送信に失敗した場合は、「チャンネルのID」「スプレッドシートのスクリプトプロパティ」「Google Apps Scriptのデプロイで「アクセスできるユーザー」を「全員」にしているかどうか」などの確認。
 
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/4e3b003a-f1f8-4571-9cfc-78fd33f26ed8"> 
+  </p>
+</div>
 
 ## 注意
 
