@@ -264,7 +264,8 @@ npm run deploy
 </div>
 
 - トリガーの設定
--- 「src/setTrigger.gs」を「実行」する
+  - 「src/setTrigger.gs」を「実行」する
+  
 
 <div display="flex">
   <p align="center">
