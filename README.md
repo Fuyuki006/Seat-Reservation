@@ -263,6 +263,15 @@ npm run deploy
   </p>
 </div>
 
+- トリガーの設定
+-- 「src/setTrigger.gs」を「実行」する
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/1407602c-9577-40af-8862-05ad130a2775"> 
+  </p>
+</div>
+
 ## 注意
 
 
