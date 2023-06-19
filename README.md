@@ -40,6 +40,13 @@ Slack に埋め込んだ、座席を確認するためのスプレッドシー�
 その週以外の日付の選択
 ![download](https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/72b4419a-7582-439e-8283-a7af931e62a6)
 
+## 注意
+
+### トリガーについて
+
+- 日本標準時-東京 (UTC + 09:00) に合わせた時間設定です。
+- 毎週月曜日に新規シートが作成され、座席の予約はその週の月曜日が開始です。
+
 ## 実装手順
 - ソース(Google Apps Script) のダウンロード
 1. [Node.js](https://nodejs.org/en/download) バージョン 4.7.4 以降のインストール
@@ -287,12 +294,6 @@ npm run deploy
     <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/1ed380b0-7ffd-453f-8cdf-43f487210340"> 
   </p>
 </div>
-
-## 注意
-
-### Slack について
-
-### トリガーについて
 
 ## 使い方
 
