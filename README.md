@@ -96,6 +96,36 @@ npm run deploy
   </p>
 </div>
 
+3. 新規シートを作成して、「state」という名前を付ける
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/1cd0c306-dd52-4b23-b34a-79261fa04637"> 
+  </p>
+</div>
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/723e5230-f44a-426e-9476-9b139cbd0e0e"> 
+  </p>
+</div>
+
+4. 以下の画像の赤枠にある「共有」を押す
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/fa367035-7c12-4385-973b-72efeb0c39fa"> 
+  </p>
+</div>
+
+5. 以下の画像にある「一般的なアクセス」で「リンクを知っている全員」にする
+
+<div display="flex">
+  <p align="center">
+    <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/c7df3f13-ed47-4b13-9ae2-477a08179b6e"> 
+  </p>
+</div>
+
 - <a id="slack_api_settings_1"></a>Slack API の設定-1
 1. [こちら](https://api.slack.com/apps)にアクセス
 2. Create New App -> From an app manifest を選択
