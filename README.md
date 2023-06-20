@@ -80,6 +80,22 @@ npm run deploy
 2. スプレッドシートの URL で `https://docs.google.com/spreadsheets/d/<スプレッドシートのID>/edit` にある スプレッドシートのID を控えておく
 3. 1\. と 2. の操作を [座席を確認するためのスプレッドシート](#実装手順) と 座席のデータを管理するためのスプレッドシート の 2枚分 繰り返す
 
+- 座席のデータを管理するためのスプレッドシート の設定
+1. [こちら](https://drive.google.com/drive/my-drive)から、「座席のデータを管理するためのスプレッドシート」を開く
+2. 既存のシートの名前を「formdata」に変更する
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/793cf001-0d2d-48f8-9e78-865fee3e65c9"> 
+  </p>
+</div>
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/ac209e7f-cad4-4338-9bba-1df6c371db2b"> 
+  </p>
+</div>
+
 - <a id="slack_api_settings_1"></a>Slack API の設定-1
 1. [こちら](https://api.slack.com/apps)にアクセス
 2. Create New App -> From an app manifest を選択
