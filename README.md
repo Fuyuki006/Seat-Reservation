@@ -80,6 +80,23 @@ npm run deploy
 2. スプレッドシートの URL で `https://docs.google.com/spreadsheets/d/<スプレッドシートのID>/edit` にある スプレッドシートのID を控えておく
 3. 1\. と 2. の操作を [座席を確認するためのスプレッドシート](#実装手順) と 座席のデータを管理するためのスプレッドシート の 2枚分 繰り返す
 
+- 座席を確認するためのスプレッドシート の設定
+1. 以下の画像の赤枠にある「共有」を押す
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/fa367035-7c12-4385-973b-72efeb0c39fa"> 
+  </p>
+</div>
+
+2. 以下の画像にある「一般的なアクセス」で「リンクを知っている全員」にする
+
+<div display="flex">
+  <p align="center">
+    <img width=50% height=50% src="https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/c7df3f13-ed47-4b13-9ae2-477a08179b6e"> 
+  </p>
+</div>
+
 - 座席のデータを管理するためのスプレッドシート の設定
 1. [こちら](https://drive.google.com/drive/my-drive)から、「座席のデータを管理するためのスプレッドシート」を開く
 2. 既存のシートの名前を「formdata」に変更する
