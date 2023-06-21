@@ -29,7 +29,7 @@ Google Apps Script で書き、Slack API と連携させた座席予約用のア
 
 
 #### 実装手順
-Slack に埋め込んだ、座席を確認するためのスプレッドシート上での確認
+Slack に埋め込んだ、座席予約状況を確認するためのスプレッドシート上での確認
 ![download](https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/1d785254-302c-4519-b1b5-428ae09def4f)
 
 #### Errors
@@ -78,9 +78,9 @@ npm run deploy
 - <a id="description_create_sheet"></a>他のスプレッドシートの作成
 1. [こちらから](https://drive.google.com/drive/my-drive)、新規 -> Google スプレッドシート で新しいスプレッドシートを作成する
 2. スプレッドシートの URL で `https://docs.google.com/spreadsheets/d/<スプレッドシートのID>/edit` にある スプレッドシートのID を控えておく
-3. 1\. と 2. の操作を [座席を確認するためのスプレッドシート](#実装手順) と 座席のデータを管理するためのスプレッドシート の 2枚分 繰り返す
+3. 1\. と 2. の操作を [座席予約状況を確認するためのスプレッドシート](#実装手順) と 座席のデータを管理するためのスプレッドシート の 2枚分 繰り返す
 
-- 座席を確認するためのスプレッドシート の設定
+- 座席予約状況を確認するためのスプレッドシート の設定
 1. 以下の画像の赤枠にある「共有」を押す
 
 <div display="flex">
