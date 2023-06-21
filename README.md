@@ -55,7 +55,7 @@ Slack に埋め込んだ、座席予約状況を確認するためのスプレ�
 
 リポジトリ等のインストール
 ```bash
-git clone https://github.com/Fuyuki006/Seat-Reservation.git
+git clone https://github.com/Fuyuki006/Seat-Reservation-ver1.git
 cd Seat-Reservation
 npm install
 ```
