@@ -145,6 +145,19 @@ npm run deploy
 - <a id="slack_api_settings_1"></a>Slack API の設定-1
 1. [こちら](https://api.slack.com/apps)にアクセス
 2. Create New App -> From an app manifest を選択
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/4dc580c5-505d-4179-8244-cb753d348323"> 
+  </p>
+</div>
+
+<div display="flex">
+  <p align="center">
+    <img src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/6955e6ae-5549-49d0-8291-c407e34519b0"> 
+  </p>
+</div>
+
 3. アプリを動作させる Slack ワークスペースを選択
 4. JSON に manifest.json の中身をコピー & ペースト
 5. 「Create」 する
