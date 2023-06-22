@@ -41,7 +41,6 @@ Slack に埋め込んだ、座席予約状況を確認するためのスプレ�
 ![download](https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/72b4419a-7582-439e-8283-a7af931e62a6)
 
 ## 注意
-
 ### トリガーについて
 
 - 日本標準時-東京 (UTC + 09:00) に合わせた時間設定です。
