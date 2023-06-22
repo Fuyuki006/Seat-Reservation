@@ -28,7 +28,7 @@ Google Apps Script で書き、Slack API と連携させた座席予約用のア
 ![download](https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/3ff09fcc-7a9f-4fd7-bc1f-f0e21fba2248)
 
 
-#### 実装手順
+#### 座席の確認
 Slack に埋め込んだ、座席予約状況を確認するためのスプレッドシート上での確認
 ![download](https://github.com/Fuyuki006/Seat-Reservation/assets/125243602/1d785254-302c-4519-b1b5-428ae09def4f)
 
