@@ -159,8 +159,29 @@ npm run deploy
 </div>
 
 3. アプリを動作させる Slack ワークスペースを選択
+
+<div display="flex">
+  <p align="center">
+    <img width="377" alt="pic38" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/3bfee42b-e2a0-4bfc-9b17-4e8aa6b3c311">
+  </p>
+</div>
+
 4. JSON に manifest.json の中身をコピー & ペースト
+
+<div display="flex">
+  <p align="center">
+    <img width="377" alt="pic39" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/9161f3f8-4169-49ab-8825-d65d886d9a9c">
+  </p>
+</div>
+
 5. 「Create」 する
+
+<div display="flex">
+  <p align="center">
+    <img width="338" alt="pic41" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/447b65cb-1f9d-45c8-b4cf-89b832949bc5">
+  </p>
+</div>
+
 6. Settings の Install App -> Install Workspace を許可して、ワークスペースに追加
 7. <a id="link7"></a>Features の OAuth & Permissions にある OAuth Tokens for Your Workspace で 「xoxb-」から始まる Bot User OAuth Token を控えておく
 
