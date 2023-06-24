@@ -183,7 +183,20 @@ npm run deploy
 </div>
 
 6. Settings の Install App -> Install Workspace を許可して、ワークスペースに追加
+
+<div display="flex">
+  <p align="center">
+    <img width="338" alt="pic41" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/b585d006-8bf3-4add-a832-0724b4785729">
+  </p>
+</div>
+
 7. <a id="link7"></a>Features の OAuth & Permissions にある OAuth Tokens for Your Workspace で 「xoxb-」から始まる Bot User OAuth Token を控えておく
+
+<div display="flex">
+  <p align="center">
+    <img width="676" alt="pic42" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/c03f292f-2113-4677-b13b-8300a9ed248e">
+  </p>
+</div>
 
 - スクリプトプロパティの設定
 1. [こちら](https://drive.google.com/drive/my-drive)にアクセスし、先ほど作成されたソース用スプレッドシート(seat-reservation-srcという名前のスプレッドシート) を開く
