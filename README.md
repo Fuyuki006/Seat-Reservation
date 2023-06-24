@@ -380,6 +380,7 @@ npm run deploy
 </div>
 
 - トリガーの設定
+
 1.「src/setTrigger.gs」を「実行」する
 
 <div display="flex">
