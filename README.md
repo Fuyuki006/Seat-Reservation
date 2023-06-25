@@ -184,12 +184,6 @@ npm run deploy
 
 6. Settings の Install App -> Install Workspace を許可して、ワークスペースに追加
 
-<div display="flex">
-  <p align="center">
-    <img width="338" alt="pic41" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/b585d006-8bf3-4add-a832-0724b4785729">
-  </p>
-</div>
-
 7. <a id="link7"></a>Features の OAuth & Permissions にある OAuth Tokens for Your Workspace で 「xoxb-」から始まる Bot User OAuth Token を控えておく
 
 <div display="flex">
