@@ -162,7 +162,7 @@ npm run deploy
 
 <div display="flex">
   <p align="center">
-    <img width="377" alt="pic38" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/3bfee42b-e2a0-4bfc-9b17-4e8aa6b3c311">
+    <img width="377" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/3bfee42b-e2a0-4bfc-9b17-4e8aa6b3c311">
   </p>
 </div>
 
@@ -170,7 +170,7 @@ npm run deploy
 
 <div display="flex">
   <p align="center">
-    <img width="377" alt="pic39" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/9161f3f8-4169-49ab-8825-d65d886d9a9c">
+    <img width="377" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/9161f3f8-4169-49ab-8825-d65d886d9a9c">
   </p>
 </div>
 
@@ -178,7 +178,7 @@ npm run deploy
 
 <div display="flex">
   <p align="center">
-    <img width="338" alt="pic41" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/447b65cb-1f9d-45c8-b4cf-89b832949bc5">
+    <img width="338" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/447b65cb-1f9d-45c8-b4cf-89b832949bc5">
   </p>
 </div>
 
@@ -188,7 +188,7 @@ npm run deploy
 
 <div display="flex">
   <p align="center">
-    <img width="676" alt="pic42" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/c03f292f-2113-4677-b13b-8300a9ed248e">
+    <img width="676" src="https://github.com/Fuyuki006/Seat-Reservation-ver1/assets/125243602/c03f292f-2113-4677-b13b-8300a9ed248e">
   </p>
 </div>
 
