@@ -1,4 +1,4 @@
-# Seat-Reservation-ver1
+# Seat-Reservation
 Google Apps Script で書き、Slack API と連携させた座席予約用のアプリケーション (ver1) です。
 
 座席の取り合いになることを回避する目的で作成しました。
@@ -54,7 +54,7 @@ Slack に埋め込んだ、座席予約状況を確認するためのスプレ�
 
 リポジトリ等のインストール
 ```bash
-git clone https://github.com/Fuyuki006/Seat-Reservation-ver1.git
+git clone https://github.com/Fuyuki006/Seat-Reservation.git
 cd Seat-Reservation
 npm install
 ```
