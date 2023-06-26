@@ -1,4 +1,4 @@
-# Seat-Reservation.ver1
+# Seat-Reservation-ver1
 Google Apps Script で書き、Slack API と連携させた座席予約用のアプリケーション (ver1) です。
 
 座席の取り合いになることを回避する目的で作成しました。
